@@ -17,7 +17,7 @@
         <footer>
             <a href="/posts/<%= posts[i].id %>/edit"> Editar </a>
 
-            <-- In a form coz you can call for delete with an url, you need to access delete with a post method -->
+            <!-- In a form coz you can call for delete with an url, you need to access delete with a post method -->
             <form method='post' action='/posts/<%= posts[i].id %>'>
                 <input type='hidden' name='_method' value='delete'>
                 <a href="" onclick="submit();return false"> Borrar </a>

@@ -16,28 +16,40 @@ var app = express();
 
 //installl middleware to renderpartial
 app.use(partials());
-
 app.use(count.count_mw());
 
-// all environments
-app.set('port', process.env.PORT || 3000);
-app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
+app.configure(function(){
+    app.set('port', process.env.PORT || 3000);
+    app.set('views', __dirname + '/views');
+    app.set('view engine', 'ejs');
+    app.use(express.favicon());
+    app.use(express.logger('dev'));
+    app.use(express.bodyParser());
+    app.use(express.methodOverride());
+    app.use(express.cookieParser('your secret here'));
+    app.use(express.session());
+    app.use(app.router);
+    app.use(express.static(path.join(__dirname, 'public')));
+});
 
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(express.cookieParser('your secret here'));
-app.use(express.session());
-app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
+app.configure('development', function(){
+    app.use(express.errorHandler());
+});
 
 
-// development only
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
-}
+// Helper estatico:
+app.locals.escapeText =  function(text) {
+    return String(text)
+        .replace(/&(?!\w+;)/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/\n/g, '<br>');
+};
+
+app.locals({
+    visitorCounter: app.use(count.getCount())
+});
 
 
 //ROUTES

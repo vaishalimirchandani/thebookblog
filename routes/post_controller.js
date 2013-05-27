@@ -5,7 +5,7 @@
  * Time: 9:07 PM
  */
 var models = require('../models/models.js');
-
+var count = require('.././count');
 
 // GET /posts
 exports.index = function(req, res, next) {
@@ -13,7 +13,8 @@ exports.index = function(req, res, next) {
         .findAll({order: 'updatedAt DESC'})
         .success(function(posts) {
             res.render('posts/index', {
-                posts: posts
+                posts: posts,
+                counter: count.getCount()
             });
         })
         .error(function(error) {
@@ -34,7 +35,8 @@ exports.show = function(req, res, next) {
         .success(function(post) {
             if (post) {
                 res.render('posts/show', {
-                    post: post
+                    post: post,
+                    counter: count.getCount()
                 });
             } else {
                 console.log('No existe ningun post con id='+id+'.');
@@ -56,7 +58,7 @@ exports.new = function(req, res, next) {
         { title: 'Introduzca el titulo',
             body: 'Introduzca el texto del articulo'
         });
-    res.render('posts/new', {post: post});
+    res.render('posts/new', {post: post, counter: count.getCount()});
 };
 
 
@@ -74,7 +76,7 @@ exports.create = function(req, res, next) {
     var validate_errors = post.validate();
     if (validate_errors) {
         console.log("Errores de validacion:", validate_errors);
-        res.render('posts/new', {post: post});
+        res.render('posts/new', {post: post, counter: count.getCount()});
         return;
     }
 
@@ -84,7 +86,7 @@ exports.create = function(req, res, next) {
         })
         .error(function(error) {
             console.log("Error: No puedo crear el post:", error);
-            res.render('posts/new', {post: post});
+            res.render('posts/new', {post: post, counter: count.getCount()});
         });
 };
 
@@ -98,7 +100,7 @@ exports.edit = function(req, res, next) {
         .find({where: {id: Number(id)}})
         .success(function(post) {
             if (post) {
-                res.render('posts/edit', {post: post});
+                res.render('posts/edit', {post: post, counter: count.getCount()});
             } else {
                 console.log('No existe ningun post con id='+id+'.');
                 res.redirect('/posts');
@@ -123,7 +125,7 @@ exports.update = function(req, res, next) {
                 var validate_errors = post.validate();
                 if (validate_errors) {
                     console.log("Errores de validacion:", validate_errors);
-                    res.render('posts/edit', {post: post});
+                    res.render('posts/edit', {post: post, counter: count.getCount()});
                     return;
                 }
                 post.save(['title','body'])
@@ -132,7 +134,7 @@ exports.update = function(req, res, next) {
                     })
                     .error(function(error) {
                         console.log("Error: No puedo editar el post:", error);
-                        res.render('posts/edit', {post: post});
+                        res.render('posts/edit', {post: post, counter: count.getCount()});
                     });
             } else {
                 console.log('No existe ningun post con id='+id+'.');
