@@ -9,48 +9,103 @@ var count = require('.././count');
 
 // GET /posts
 exports.index = function(req, res, next) {
+    var format = req.params.format || 'html';
+    format = format.toLowerCase();
+
     models.Post
         .findAll({order: 'updatedAt DESC'})
         .success(function(posts) {
-            res.render('posts/index', {
-                posts: posts,
-                counter: count.getCount()
-            });
+            switch (format) {
+                case 'html':
+                case 'htm':
+                    res.render('posts/index', {
+                        posts: posts,
+                        counter: count.getCount()
+                    });
+                    break;
+                case 'json':
+                    res.send(posts);
+                    break;
+                case 'xml':
+                    res.send(posts_to_xml(posts));
+                    break;
+                case 'txt':
+                    res.send(posts.map(function(post) {
+                        return post.title+' ('+post.body+')';
+                    }).join('\n'));
+                    break;
+                default:
+                    console.log('No se soporta el formato \".'+format+'\" pedido para \"'+req.url+'\".');
+                    res.send(406);
+            }
         })
         .error(function(error) {
             console.log("Error: No puedo listar los posts.");
             res.redirect('/');
         });
 };
-
+function posts_to_xml(posts) {
+    return '<posts>\n' +
+        posts.map(function(post) {
+            return '<post>'+
+                ' <title>'+post.title+'</title>'+
+                ' <body>'+post.body+'</body>'+
+                '</post>';
+        }).join('\n') + ('\n</posts>');
+}
 
 
 
 // GET /posts/33
 exports.show = function(req, res, next) {
+    var format = req.params.format || 'html';
+    format = format.toLowerCase();
 
-    var id = req.params.postid;
+    var id =  req.params.postid;
+
     models.Post
-        .find({where: {id:Number(id)}})
+        .find({where: {id: Number(id)}})
         .success(function(post) {
-            if (post) {
-                res.render('posts/show', {
-                    post: post,
-                    counter: count.getCount()
-                });
-            } else {
-                console.log('No existe ningun post con id='+id+'.');
-                res.redirect('/posts');
+            switch (format) {
+                case 'html':
+                case 'htm':
+                    if (post) {
+                        res.render('posts/show', { post: post , counter: count.getCount()});
+                    } else {
+                        console.log('No existe ningun post con id='+id+'.');
+                        res.redirect('/posts');
+                    }
+                    break;
+                case 'json':
+                    res.send(post);
+                    break;
+                case 'xml':
+                    res.send(post_to_xml(post));
+                    break;
+                case 'txt':
+                    res.send(post.title+' ('+post.body+')');
+                    break;
+                default:
+                    console.log('No se soporta el formato \".'+format+'\" pedido para \"'+req.url+'\".');
+                    res.send(406);
             }
         })
         .error(function(error) {
             console.log(error);
             res.redirect('/');
         });
-
-
 };
 
+function post_to_xml(post) {
+    if (post) {
+        return '<post>'+
+            ' <title>'+post.title+'</title>'+
+            ' <body>'+post.body+'</body>'+
+            '</post>';
+    } else {
+        return '<error>post no existe</error>';
+    }
+}
 
 // GET /posts/new
 exports.new = function(req, res, next) {
