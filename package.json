@@ -9,6 +9,7 @@
     "express": "3.2.4",
     "ejs": "0.8.2",
     "express-partials":
-	"git+http://github.com/publicclass/express-partials.git#c9b8adde89387dea"
+	"git+http://github.com/publicclass/express-partials.git#c9b8adde89387dea",
+    "sequelize": "git://github.com/com/sequelize/sequelize.git"
   }
 }
