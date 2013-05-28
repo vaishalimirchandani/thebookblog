@@ -52,6 +52,10 @@ app.locals.escapeText =  function(text) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 
+//---------------------
+
+app.param('postid', postController.load);
+
 app.get('/posts.:format?', postController.index);
 app.get('/posts/new', postController.new);
 app.get('/posts/:postid([0-9]+).:format?', postController.show);
