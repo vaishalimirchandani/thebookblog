@@ -204,13 +204,33 @@ a.more{
     font-size:13px;
 }
 
+.left_box#footer{
+    border-bottom:none;
+    float:left;
+    font-size:15px;
+    text-align: right ;
+
+}
+
+.left_box#footer p  {
+    text-align: right ;
+}
+.left_box#footer p a {
+    font-weight: bold;
+    color:#734633;
+
+}
+
+.left_box#footer > a {
+    font-weight: bold;
+    color:#734633;
+}
+
 /*---welcome_box---*/
 
 .left_box#welcome_box{
     border-bottom:none;
 }
-
-
 
 
 /*------------------------------------right content--------------------*/
@@ -264,4 +284,72 @@ a.more{
     color:#afaeaf;
 }
 
+ /*-------form---------*/
+
+
+.form{
+    width: 90%;
+    float:left;
+    padding:25px;
+    margin:20px 0 0 15px;
+    border:1px #DFD1D2 dashed;
+    position:relative;
+}
+
+.form_row{
+    clear:both;
+    padding:10px 0 10px 0;
+    color:#a53d17;
+}
+
+label.newPost{
+    float:left;
+    font-size:12px;
+    text-align:right;
+    padding:4px 0px 5px 5px  !important;
+    color: #333333;
+}
+
+input.post_input{
+    background-color:#fff;
+    color:#999999;
+    border:1px #DFDFDF solid;
+    float:left;
+}
+
+textarea.post_textarea{
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:12px;
+    color: #999999;
+    background-color:#fff;
+    border:1px #DFDFDF solid;
+    float:left;
+}
+
+.form_subtitle{
+    position:absolute;
+    top:-11px;
+    left:7px;
+    width:auto;
+    height:20px;
+    background-color:#795636;
+    text-align:center;
+    padding:0 7px 0 7px;
+    color:#FFFFFF;
+    font-size:11px;
+    line-height:20px;
+}
+
+.submit_button{
+    display:block;
+    float:right;
+    margin:0 0 0 10px;
+    background-color: #795636;
+    color:#fff;
+    border:none;
+}
+
+.left_box#form{
+    border-bottom:none;
+}
 

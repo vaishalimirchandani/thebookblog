@@ -1,14 +1,29 @@
-<div class="field">
-    <label for="post_title">Titulo</label><br />
-    <input type="text" id="post_title" name="post[title]" size='80' value='<%= post.title%>' />
-</div>
+<div class="left_box" id="form">
+    <div class="form">
+    <div class="form_subtitle">all fields are requierd</div>
+        <div class="form_row">
+            <div class="field">
+                <label for="post_title" class="newPost">Book Title</label><br />
+                <input type="text" id="post_title" class="post_input" name="post[title]" size="62" value='<%= post.title%>' />
+            </div>
+        </div>
 
-<div class="field">
-    <label for="post_body">Contenido</label><br />
-    <textarea id="post_body" name="post[body]" rows="20" cols="80"><%= post.body %>
-    </textarea>
-</div>
 
-<div class="actions">
-    <input name="commit" type="submit" value="Salvar" />
-</div>
+
+        <div class="form_row">
+            <div class="field">
+                <label for="post_body" class="newPost">Synopsis and Comments</label><br />
+                <textarea id="post_body" class="post_textarea" name="post[body]" rows="20" cols="70"><%= post.body %>
+                </textarea>
+            </div>
+        </div>
+
+
+        <div class="form_row">
+        <div class="actions contact">
+            <input class="submit_button" name="commit" type="submit" value="Save" />
+        </div>
+    </div>
+</div
+
+<div class="clear"></div>
