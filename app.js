@@ -12,6 +12,8 @@ var express = require('express')
   , count = require('./count')
   , postController = require('./routes/post_controller.js');
 
+var util = require('util');
+
 var app = express();
 
 //installl middleware to renderpartial
@@ -32,9 +34,25 @@ app.configure(function(){
     app.use(express.static(path.join(__dirname, 'public')));
 });
 
-app.configure('development', function(){
-    app.use(express.errorHandler());
+//middleware para capturar errores.
+
+app.use(function(err, req, res, next) {
+    if (util.isError(err)) {
+        next(err);
+    } else {
+        console.log(err);
+        res.redirect('/');
+    }
 });
+
+
+if ('development' == app.get('env')) {
+    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+} else {
+    app.use(express.errorHandler());
+}
+
+
 
 
 // Helper estatico:

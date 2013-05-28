@@ -60,8 +60,7 @@ exports.index = function(req, res, next) {
             }
         })
         .error(function(error) {
-            console.log("Error: No puedo listar los posts.");
-            res.redirect('/');
+            next(error);
         });
 };
 function posts_to_xml(posts) {
@@ -147,8 +146,7 @@ exports.create = function(req, res, next) {
             res.redirect('/posts');
         })
         .error(function(error) {
-            console.log("Error: No puedo crear el post:", error);
-            res.render('posts/new', {post: post, counter: count.getCount()});
+            next(error);
         });
 };
 
