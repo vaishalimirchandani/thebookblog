@@ -9,7 +9,10 @@
     "express": "3.2.4",
     "ejs": "0.8.2",
     "express-partials": "git+http://github.com/publicclass/express-partials.git#c9b8adde89387dea",
-    "sequelize": "git+http://github.com/sequelize/sequelize.git",
+    "pg": "0.6.x",
+    "sequelize": "git+http://github.com/sequelize/sequelize.git"
+  },
+  "devDependencies":{
     "sqlite3": ">=2.0.0"
   },
   "engines": {
