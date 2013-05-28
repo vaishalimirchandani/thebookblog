@@ -13,13 +13,28 @@
     <div class="header_left"><img src="/images/header_left.png" alt=""></div>
     <div class="header_right"><img src="/images/header_right.png" alt=""></div>
     <div class="logo"><a href="/"><img src="/images/logo.png" alt="" title="" border="0" /></a></div>
-    <div id="menu">
+
+
+    <form method='post' action='/posts/search'>
+        <div class = "menu" id="search_form">
+            <div class="search_form_row">
+                <label for="post_title"></label>
+                <input type="text" id="" class="search_input" name="search_text" size="40" >
+                <input class="submit_button" name="commit" type="submit" value="Search" />
+            </div>
+        </div>
+    </form>
+
+
+    <div class = "menu" id="menu">
         <ul>
-            <li class="selected"><a href="/">home</a></li>
-            <li><a href="/Posts">books</a></li>
+            <li id="home" class="selected"><a href="/">home</a></li>
+            <li id="books"><a href="/Posts">books</a></li>
             <li><a href="about.html">about</a></li>
         </ul>
     </div>
+
+
 </div>
 
 <div class="clear"></div>
