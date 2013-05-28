@@ -1,0 +1,40 @@
+<%- include _changeSelectedMenu.ejs %>
+
+<div class="left_title">Search result for: <%= written %> </div>
+
+<div class="clear"></div>
+
+<% for (var i in posts) { %>
+
+    <div class="left_box post">
+
+        <div class="left_box_title">
+            <a href='/posts/<%= posts[i].id %>' class='titlelink'><%= posts[i].title %> </a>
+        </div>
+
+        <div>
+            <p class="details"><%= posts[i].body.slice(0,300) %> ...</p>
+        </div>
+
+        <div>
+
+            <a href="/posts/<%= posts[i].id %>/edit" class="more"> Editar </a>
+
+            <!-- In a form coz you can call for delete with an url, you need to access delete with a post method -->
+            <form method='post' action='/posts/<%= posts[i].id %>'>
+                <input type='hidden' name='_method' value='delete'>
+                <a href="" onclick="submit();return false" class="more"> Borrar </a>
+            </form>
+
+        </div>
+
+        <div class="clear"></div>
+
+    </div>
+    <div class="clear"></div>
+
+<% }; %>
+
+<div class="left_box post" id="footer">
+    <a href="/posts/new"> Add New Book </a>
+</div>
