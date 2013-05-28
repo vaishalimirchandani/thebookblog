@@ -1,10 +1,16 @@
-<h1>Nuevo Post</h1>
+<%- include _changeSelectedMenu.ejs %>
 
-<form method='post' action='/posts' class='form-horizontal'>
+<div class="left_title">New Book</div>
+
+<div class="clear"></div>
+
+<form method='post' action='/posts'>
 
   <%- include _form.ejs %>
 
 </form>
 
 
-<a href="/posts"> Volver  </a>
+<div class="left_box post" id="footer">
+    <a href="/posts"> Back  </a>
+</div>

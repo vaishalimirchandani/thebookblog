@@ -1,13 +1,12 @@
 body
 {
-    background-color:#6F605A;
     font-family:Arial, Helvetica, sans-serif;
     padding:0;
     font-size:12px;
-    margin:0px auto auto auto;
+    margin:0 auto auto auto;
     color:#000000;
     width: 80%;
-    background: url("../images/bg_tile.png") repeat;
+    background: #6F605A url("../images/bg_tile.png") repeat;
     border: 3px solid;
     border-color: #53290B;
     margin-top: 20px;
@@ -35,7 +34,7 @@ a{
 
 p{
     padding:5px 0 5px 0;
-    margin:0px;
+    margin:0;
     text-align:justify;
     line-height:19px;
 }
@@ -59,7 +58,7 @@ p.details{
 ul.list{
     clear:both;
     padding:10px 0 0 20px;
-    margin:0px;
+    margin:0;
 }
 ul.list li{
     list-style:none;
@@ -91,37 +90,32 @@ a.more{
     float:right;
     text-decoration:none;
     font-size:11px;
-    padding:0px 15px 0 0 ;
+    padding:0 15px 0 0 ;
 }
 
 
 
 
-/*-----------------------------menu-------------------*/
-#menu{
-    position: absolute;
-    width:628px;
-    height:30px;
-    padding:145px 0 0 10px;
-}
-#menu ul{
+/*-----------------------------all layout menus-------------------*/
+
+
+.menu ul{
     display:block;
     list-style:none;
     padding:9px 0 0 10px;
-    margin:0px;
+    margin:0;
 }
-#menu ul li{
+.menu ul li{
     display:inline;
-    padding:0px;
-    margin:0px;
+    padding:0;
+    margin:0;
     height:20px;
 }
-#menu ul li a{
+.menu ul li a{
     height:27px;
     display:block;
-    padding:0px 10px 0 10px;
+    padding:0 10px 0 10px;
     margin:0 4px 0 4px;
-    _margin:0 2px 0 2px;
     float:left;
     text-decoration:none;
     text-align:center;
@@ -129,10 +123,10 @@ a.more{
     font-size:13px;
     line-height:25px;
 }
-#menu ul li.selected a{
+.menu ul li.selected a{
     height:27px;
     display:block;
-    padding:0px 10px 0 10px;
+    padding:0 10px 0 10px;
     margin:0 5px 0 5px;
     float:left;
     text-decoration:none;
@@ -141,9 +135,41 @@ a.more{
     font-size:13px;
     line-height:25px;
 }
-#menu ul li a:hover{
+.menu ul li a:hover{
     color:#f7a849;
 }
+
+/*----menu----*/
+
+#menu{
+    position: absolute;
+    height:30px;
+    padding:145px 0 0 10px;
+}
+
+/*----search form layout----*/
+
+#search_form{
+    position: absolute;
+    width: 100%;
+    height:30px;
+    float: left;
+    padding:154px 0 0 0 ;
+    text-align: right;
+    margin-left: -10px;
+}
+#search_form .submit_button{
+    display:block;
+    height: 25px;
+    float:right;
+    margin:0 0 0 10px;
+    background-color: #795636;
+    color:#fff;
+    border: none;
+}
+
+
+/*--bg images setting --*/
 
 .container2 {
     float:left;
@@ -204,13 +230,33 @@ a.more{
     font-size:13px;
 }
 
+.left_box#footer{
+    border-bottom:none;
+    float:left;
+    font-size:15px;
+    text-align: right ;
+
+}
+
+.left_box#footer p  {
+    text-align: right ;
+}
+.left_box#footer p a {
+    font-weight: bold;
+    color:#734633;
+
+}
+
+.left_box#footer > a {
+    font-weight: bold;
+    color:#734633;
+}
+
 /*---welcome_box---*/
 
 .left_box#welcome_box{
     border-bottom:none;
 }
-
-
 
 
 /*------------------------------------right content--------------------*/
@@ -264,4 +310,72 @@ a.more{
     color:#afaeaf;
 }
 
+ /*-------form---------*/
+
+
+.post_form{
+    width: 90%;
+    float:left;
+    padding:25px;
+    margin:20px 0 0 15px;
+    border:1px #DFD1D2 dashed;
+    position:relative;
+}
+
+.post_form_row{
+    clear:both;
+    padding:10px 0 10px 0;
+    color:#a53d17;
+}
+
+.post_form label.newPost{
+    float:left;
+    font-size:12px;
+    text-align:right;
+    padding:4px 0px 5px 5px  !important;
+    color: #333333;
+}
+
+.post_form input.post_input{
+    background-color:#fff;
+    color:#999999;
+    border:1px #DFDFDF solid;
+    float:left;
+}
+
+.post_form textarea.post_textarea{
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:12px;
+    color: #999999;
+    background-color:#fff;
+    border:1px #DFDFDF solid;
+    float:left;
+}
+
+.post_form_subtitle{
+    position:absolute;
+    top:-11px;
+    left:7px;
+    width:auto;
+    height:20px;
+    background-color:#795636;
+    text-align:center;
+    padding:0 7px 0 7px;
+    color:#FFFFFF;
+    font-size:11px;
+    line-height:20px;
+}
+
+.submit_button{
+    display:block;
+    float:right;
+    margin:0 0 0 10px;
+    background-color: #795636;
+    color:#fff;
+    border-color:#795636;
+}
+
+.left_box#post_form{
+    border-bottom:none;
+}
 

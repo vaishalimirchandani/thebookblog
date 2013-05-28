@@ -110,8 +110,8 @@ function post_to_xml(post) {
 // GET /posts/new
 exports.new = function(req, res, next) {
     var post = models.Post.build(
-        { title: 'Introduzca el titulo',
-            body: 'Introduzca el texto del articulo'
+        { title: 'Write in the book title',
+            body: 'Write in the book synopsis and your Comments'
         });
     res.render('posts/new', {post: post, counter: count.getCount()});
 };
@@ -230,3 +230,34 @@ exports.destroy = function(req, res, next) {
             res.redirect('/');
         });
 };
+
+
+
+
+// GET /posts/search/
+exports.search = function(req, res, next) {
+    var written = req.body.search_text;
+    var formatted_query = replace_for_query(written);
+    models.Post
+        .findAll({where: ["title like ? OR body like ?", formatted_query, formatted_query], order: "updatedAt DESC"})
+        .success(function(posts) {
+            res.render('posts/search', {
+                written: written,
+                posts: posts,
+                counter: count.getCount()
+            });
+        })
+        .error(function(error) {
+            console.log("Error: No puedo listar los posts.");
+            res.redirect('/');
+        });
+
+};
+
+function replace_for_query(text) {
+    if (text) {
+        return "%".concat(text.replace(/ /g,"%"),"%");
+    } else {
+        return '<error>No hay texto</error>';
+    }
+}

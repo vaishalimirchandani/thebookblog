@@ -1,19 +1,23 @@
-<h2>Post</h2>
+<%- include _changeSelectedMenu.ejs %>
 
-<p>
-    <b><%= post.title %></b>
-    <br />
-    by
-    <em>El autor</em>
+<div class="left_title">Book Details</div>
 
-</p>
+<div class="clear"></div>
 
-<p>
-    <%= post.updatedAt.toLocaleDateString() %>
-</p>
+<div class="left_box" id="welcome_box">
 
-<p><%- escapeText(post.body) %></p>
+    <div class="left_box_title"><b><%= post.title %></b><br />by <em>El autor</em></div>
 
-<a href="/posts/<%= post.id %>/edit"> Edit </a>
+    <p class="details"><%= post.updatedAt.toLocaleDateString() %>
+    </p>
+    <p class="details"><%- escapeText(post.body) %></p>
 
-<a href="/posts"> Back </a>
+    <div class="clear"></div>
+
+</div>
+
+<div class="left_box post" id="footer">
+    <p>
+    <a href="/posts/<%= post.id %>/edit">Edit</a> &emsp; <a href="/posts">Back</a>
+    </p>
+</div>
