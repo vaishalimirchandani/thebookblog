@@ -19,13 +19,13 @@ module.exports = function(sequelize, DataTypes) {
         title: {
             type: DataTypes.STRING,
                 validate: {
-                notEmpty: {msg: "El campo del titulo no puede estar vacio"}
+                notEmpty: {msg: "The Book Title field can not be blank"}
             }
         },
         body: {
             type: DataTypes.TEXT,
                 validate: {
-                notEmpty: {msg: "El cuerpo del post no puede estar vacio"}
+                notEmpty: {msg: "The Synopsis field can not be blank"}
             }
         }
     });

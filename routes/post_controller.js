@@ -19,7 +19,8 @@ exports.load = function(req, res, next, id) {
                 req.post = post;
                 next();
             } else {
-                next('No existe el post con id='+id+'.');
+                req.flash('error', 'There is no book with id='+id+'.');
+                next('There is no book with id='+id+'.');
             }
         })
         .error(function(error) {
@@ -136,13 +137,22 @@ exports.create = function(req, res, next) {
 
     var validate_errors = post.validate();
     if (validate_errors) {
-        console.log("Errores de validacion:", validate_errors);
-        res.render('posts/new', {post: post, counter: count.getCount()});
+        console.log("Validation errors:", validate_errors);
+
+        req.flash('error', 'One or more fields in the form are invalid.');
+        for (var err in validate_errors) {
+            req.flash('error', validate_errors[err]);
+        };
+
+        res.render('posts/new', {post: post,
+                                counter: count.getCount(),
+                                validate_errors: validate_errors});
         return;
     }
 
     post.save()
         .success(function() {
+            req.flash('success', 'The review for your new book has been created.');
             res.redirect('/posts');
         })
         .error(function(error) {
@@ -166,11 +176,20 @@ exports.update = function(req, res, next) {
     var validate_errors = req.post.validate();
     if (validate_errors) {
         console.log("Errores de validacion:", validate_errors);
-        res.render('posts/edit', {post: req.post,counter: count.getCount() });
+
+        req.flash('error', 'One or more fields in the form are invalid.');
+        for (var err in validate_errors) {
+            req.flash('error', validate_errors[err]);
+        };
+
+        res.render('posts/edit', {post: req.post,
+                                  counter: count.getCount(),
+                                  validate_errors: validate_errors});
         return;
     }
     req.post.save(['title', 'body'])
         .success(function() {
+            req.flash('success', 'The review for your new book has been updated.');
             res.redirect('/posts');
         })
         .error(function(error) {
@@ -185,6 +204,7 @@ exports.destroy = function(req, res, next) {
 
     req.post.destroy()
         .success(function() {
+            req.flash('success', 'The book was deleted.');
             res.redirect('/posts');
         })
         .error(function(error) {
