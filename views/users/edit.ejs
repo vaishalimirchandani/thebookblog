@@ -1,0 +1,18 @@
+<%- include _changeSelectedMenu.ejs %>
+
+
+<div class="left_title">Edit User Details</div>
+
+<div class="clear"></div>
+
+<form method='post' action='/users/<%= user.id %>'>
+
+    <input type='hidden' name='_method' value='put'>
+
+    <% include _form.ejs %>
+
+</form>
+
+<div class="left_box post" id="footer">
+    <a href="/users"> Back  </a>
+</div>

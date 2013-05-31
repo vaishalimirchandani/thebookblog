@@ -1,0 +1,41 @@
+<%- include _changeSelectedMenu.ejs %>
+
+<div class="left_title">Users</div>
+
+<div class="clear"></div>
+
+<div class="left_box post">
+    <div class="all_tables">
+        <table>
+          <tr>
+            <td>Login</td>
+            <td>Name</td>
+            <td>Email</td>
+            <td colspan="3">&nbsp;</td>
+
+          </tr>
+
+        <% for (var i in users) { %>
+            <tr>
+                <td> <%= users[i].login %>  </td>
+                <td> <%= users[i].name %>  </td>
+                <td> <%= users[i].email %> </td>
+                <td><a href="/users/<%= users[i].id %>"> Details </a></td>
+                <td><a href="/users/<%= users[i].id %>/edit"> Edit </a></td>
+                <form method='post' action='/users/<%= users[i].id %>'>
+                    <input type='hidden' name='_method' value='delete'>
+
+                    <td><a href="" onclick="submit();return false"> Delete </a></td>
+                </form>
+
+            </tr>
+        <%  }; %>
+        </table>
+    </div>
+</div>
+<div class="clear"></div>
+
+<div class="left_box post" id="footer">
+    <a href="/users/new"> Add New User </a>
+</div>
+

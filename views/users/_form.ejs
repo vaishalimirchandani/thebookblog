@@ -1,0 +1,57 @@
+<div class="left_box" id="all_form">
+    <div class="all_form">
+    <div class="all_form_subtitle">account details </div>
+
+
+        <div class="all_form_row">
+            <div class="all_field">
+                <div class='<%- locals.validate_errors && validate_errors.title
+                            ? "invalid_field"
+                            : "field" %>'>
+                    <% if ( ! user.id) { %>
+                        <label for="user_login">Username:</label><br />
+                        <input type="text" id="user_login" class="all_input" name="user[login]" value='<%= user.login%>' />
+                    <% } else { %>
+                        Username: <%= user.login %>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="all_form_row">
+            <div class="all_field">
+                <div class='<%- locals.validate_errors && validate_errors.title
+                            ? "invalid_field"
+                            : "field" %>'>
+                    <label for="user_name">Nombre</label><br />
+                    <input type="text" id="user_name" class="all_input" name="user[name]" value='<%= user.name%>' />
+                </div>
+            </div>
+        </div>
+
+
+        <div class="all_form_row">
+            <div class="all_field">
+                <div class='<%- locals.validate_errors && validate_errors.title
+                            ? "invalid_field"
+                            : "field" %>'>
+                    <label for="user_email">Email</label><br />
+                    <input type="text" id="user_email" class="all_input" name="user[email]" value='<%= user.email %>' />
+                </div>
+            </div>
+        </div>
+
+
+        </br>
+        </br>
+
+        <div class="all_form_row">
+        <div class="actions contact">
+            <input class="submit_button" name="commit" type="submit" value="Save" />
+        </div>
+    </div>
+</div
+
+<div class="clear"></div>

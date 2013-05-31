@@ -10,20 +10,20 @@ module.exports = function(sequelize, DataTypes) {
         { login: {
             type: DataTypes.STRING,
             validate: {
-                notEmpty: { msg: "El campo login no puede estar vacio" }
+                notEmpty: { msg: "The Username Field can not be blank" }
             }
         },
             name: {
                 type: DataTypes.STRING,
                 validate: {
-                    notEmpty: { msg: "El campo nombre no puede estar vacio" }
+                    notEmpty: { msg: "The Name Field can not be blank" }
                 }
             },
             email: {
                 type: DataTypes.TEXT,
                 validate: {
-                    isEmail: { msg: "El formato del email introducido no es correcto" },
-                    notEmpty: { msg: "El campo email no puede estar vacio" }
+                    isEmail: { msg: "The Email format is not correct" },
+                    notEmpty: { msg: "The Email Field can not be blank" }
                 }
             },
             hashed_password: {

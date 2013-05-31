@@ -1,0 +1,30 @@
+<%- include _changeSelectedMenu.ejs %>
+
+<div class="left_title">User Details</div>
+
+<div class="clear"></div>
+
+<div class="left_box" id="welcome_box">
+
+    <p>
+      <b>Login:</b>
+      <%= user.login %>
+    </p>
+
+    <p>
+      <b>Name:</b>
+      <%= user.name %>
+    </p>
+
+    <p>
+      <b>Email:</b>
+      <%= user.email %>
+    </p>
+
+</div>
+
+<div class="left_box post" id="footer">
+    <p>
+    <a href="/users/<%= user.id %>/edit">Edit</a> &emsp; <a href="/users">Back</a>
+    </p>
+</div>
