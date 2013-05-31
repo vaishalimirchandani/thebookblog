@@ -22,12 +22,14 @@
                 <td> <%= users[i].email %> </td>
                 <td><a href="/users/<%= users[i].id %>"> Details </a></td>
                 <td><a href="/users/<%= users[i].id %>/edit"> Edit </a></td>
-                <form method='post' action='/users/<%= users[i].id %>'>
-                    <input type='hidden' name='_method' value='delete'>
+                <td>
+                    <form method='post' action='/users/<%= users[i].id %>'>
+                        <input type='hidden' name='_method' value='delete'>
 
-                    <td><a href="" onclick="submit();return false"> Delete </a></td>
-                </form>
+                        <a href="" onclick="submit();return false">Delete</a>
+                    </form>
 
+                </td>
             </tr>
         <%  }; %>
         </table>
