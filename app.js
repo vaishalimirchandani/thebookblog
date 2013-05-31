@@ -5,12 +5,12 @@
 
 var express = require('express')
   , routes = require('./routes')
-  , user = require('./routes/user')
   , http = require('http')
   , path = require('path')
   , partials = require ('express-partials')
   , count = require('./count')
-  , postController = require('./routes/post_controller.js');
+  , postController = require('./routes/post_controller.js')
+  , userController = require('./routes/user_controller.js');
 
 var util = require('util');
 
@@ -77,7 +77,6 @@ app.locals.escapeText =  function(text) {
 
 //ROUTES
 app.get('/', routes.index);
-app.get('/users', user.list);
 
 //---------------------
 
@@ -92,7 +91,19 @@ app.put('/posts/:postid([0-9]+)', postController.update);
 app.delete('/posts/:postid([0-9]+)', postController.destroy);
 app.post('/posts/search.:format?', postController.search);
 
+//---------------------
 
+app.param('userid', userController.load);
+
+app.get('/users', userController.index);
+app.get('/users/new', userController.new);
+app.get('/users/:userid([0-9]+)', userController.show);
+app.post('/users', userController.create);
+app.get('/users/:userid([0-9]+)/edit', userController.edit);
+app.put('/users/:userid([0-9]+)', userController.update);
+app.delete('/users/:userid([0-9]+)', userController.destroy);
+
+//---------------------
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
