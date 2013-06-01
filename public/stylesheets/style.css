@@ -528,3 +528,7 @@ a.more{
     padding: 10px 20px 10px 50px;
     border: 1px solid #795636;
 }
+
+.author{
+    font-size: 10px;
+}
