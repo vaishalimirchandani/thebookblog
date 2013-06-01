@@ -1,0 +1,44 @@
+<div class="left_title">Login</div>
+<p>
+
+</p>
+
+<div class="clear"></div>
+
+<form method='POST' action='/login'>
+
+    <input type='hidden' name='redir' value='<%= redir %>'>
+
+    <div class="left_box" id="all_form">
+        <div class="all_form">
+            <div class="all_form_subtitle">account details  &emsp; (back to <%= redir %>) </div>
+
+            <div class="all_form_row">
+                <div class="all_field">
+                    <label for="login">Username:</label><br />
+                    <input type="text" id="login" class="all_input" name="login" />
+                </div>
+            </div>
+
+
+
+            <div class="all_form_row">
+                <div class="all_field">
+                    <label for="password">Password:</label><br />
+                    <input type="password" id="password" class="all_input" name="password" />
+                </div>
+            </div>
+
+            <br/>
+            <br/>
+
+            <div class="all_form_row">
+                <div class="actions contact">
+                    <input class="submit_button" name="commit" type="submit" value="Login"/>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</form>

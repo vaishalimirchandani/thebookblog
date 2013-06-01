@@ -1,3 +1,25 @@
+<script>
+   function confirmPassword() {
+      var pw1 = document.all['user_password'].value;
+      var pw2 = document.all['user_confirm_password'].value;
+
+     <% if ( ! user.id) { %>
+        if (!pw1 || !pw2) {
+           alert('Introduce a password and confirm it.');
+           return false;
+        }
+     <% } %>
+
+      if (pw1 == pw2) {
+         return true;
+      } else {
+         alert('Passwords do not match.');
+         return false;
+      }
+   }
+</script>
+
+
 <div class="left_box" id="all_form">
     <div class="all_form">
     <div class="all_form_subtitle">account details </div>
@@ -44,14 +66,35 @@
         </div>
 
 
+
+        <div class="all_form_row">
+            <div class="all_field">
+                    <label for="user_password">Password:</label><br />
+                    <input type="password" id="user_password" class="all_input" name="user[password]" value='' />
+                </div>
+            </div>
+
+
+
+
+        <div class="all_form_row">
+            <div class="all_field">
+                <label for="user_confirm_password">Confirmar Password:</label><br />
+                <input type="password" id="user_confirm_password" class="all_input" value='' />
+            </div>
+        </div>
+
+
+
         </br>
         </br>
 
         <div class="all_form_row">
         <div class="actions contact">
-            <input class="submit_button" name="commit" type="submit" value="Save" />
+            <input class="submit_button" name="commit" type="submit" value="Save" onclick='return confirmPassword()'/>
         </div>
     </div>
-</div
+</div>
+</div>
 
 <div class="clear"></div>

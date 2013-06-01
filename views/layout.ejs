@@ -94,6 +94,28 @@
 
                 <div class="right_box">
 
+                    <div class="right_title"><span class="title_icon"><img src="/images/bullet6.gif" alt="" title="" /></span>User Information</div>
+                    <div class="clear"></div>
+
+                    <div id='logininfo'>
+                        <ul class="list">
+                           <% if (session.user) { %>
+                               <li><%= session.user.name %></li>
+                               <br/>
+                               <li><a href='/logout'> Logout </a></li>
+                           <% } else { %>
+                              <li><a href='/login?redir=/posts'> Login </a></li>
+                              <br/>
+                              <li><a href='/users/new'> Register </a></li>
+                           <% } %>
+                        </ul>
+                    </div>
+
+
+                </div>
+
+                <div class="right_box">
+
                     <div class="right_title"><span class="title_icon"><img src="/images/bullet3.gif" alt="" title="" /></span>About The Book Blog</div>
                     <div class="clear"></div>
                     <a href="about.html">
