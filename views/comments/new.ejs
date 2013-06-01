@@ -1,9 +1,13 @@
-<h1>Nuevo Comentario</h1>
+<div class="clear"></div>
 
 <form method='post' action='/posts/<%= post.id %>/comments'>
 
-  <%- include _form.ejs %>
+    <div class="left_box" id="all_form">
+        <div class="all_form">
+        <div class="all_form_subtitle">new comment</div>
+
+    <% include _form.ejs %>
+
+    </div></div>
 
 </form>
-
-<A href="/posts/<%= post.id %>"> Cancelar </a>

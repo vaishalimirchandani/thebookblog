@@ -1,40 +1,44 @@
-<header>
-  <h2> Comentarios </h2>
-</header>
+<% if (comments.length == 0) { %>
+    <div class="left_title comments">No Comments</div>
+<% } else { %>
+
+<div class="left_title comments">Comments</div>
+
+<div class="clear"></div>
+
 
 <% for (var i in comments) { %>
-  <article>
-     <header>
-        <em> <%= comments[i].author && comments[i].author.name || "Sin autor" %> </em>
-        <p>
-          <%= comments[i].updatedAt.toLocaleDateString() %>
-        </p>
-   </header>
 
-     <p>
-       <%- escapeText(comments[i].body) %>
-     </p>
+<div class="left_box comment" >
 
-     <footer>
+        <div class="left_box_title">
+            <br/>
+            <em class="author"> <%= comments[i].author && comments[i].author.name || "No Author" %> </em>
+        </div>
 
-      <% if (session.user && session.user.id == comments[i].authorId) {%>
+        <p class="details"><%= comments[i].updatedAt.toLocaleDateString() %>
+            </p>
 
-        <form method='post' action='/posts/<%= post.id %>/comments/<%= comments[i].id %>'>
-          <input type='hidden' name='_method' value='delete'>
-          <a href="/posts/<%= post.id %>/comments/<%= comments[i].id %>/edit"> Editar </a>
-          <a href="" onclick="submit();return false"> Borrar </a>
-        </form>
+        <div>
+            <p class="details"><%- escapeText(comments[i].body) %></p>
+        </div>
 
-      <% } %>
+        <div>
+            <% if (session.user && session.user.id == comments[i].authorId) {%>
+                <a href="/posts/<%= post.id %>/comments/<%= comments[i].id %>/edit" class="more"> Edit </a>
+                <!-- In a form coz you can call for delete with an url, you need to access delete with a post method -->
+                <form method='post' action='/posts/<%= post.id %>/comments/<%= comments[i].id %>'>
+                    <input type='hidden' name='_method' value='delete'>
+                    <a href="" onclick="submit();return false" class="more"> Delete </a>
+                </form>
+            <% } %>
 
-     </footer>
-  </article>
-<%  }; %>
+        </div>
 
-<footer>
-  <nav>
-<!--
-    <a href="/posts/<%= post.id %>/comments/new"> Crear nuevo Comentario </a>
--->
-  </nav>
-</footer>
+        <div class="clear"></div>
+
+    </div>
+    <div class="clear"></div>
+
+
+<%} } %>

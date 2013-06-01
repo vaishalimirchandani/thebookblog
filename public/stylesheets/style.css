@@ -201,6 +201,13 @@ a.more{
     left:35%;
 }
 
+
+.left_box.comment{
+    width: 75%;
+    margin-left: 80px;
+}
+
+
 /*--------left_box---------*/
 
 .left_box{
@@ -531,4 +538,9 @@ a.more{
 
 .author{
     font-size: 10px;
+}
+
+.left_title.comments{
+    font-size: 15px;
+    margin-left:80px;
 }

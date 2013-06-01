@@ -1,12 +1,19 @@
-<h1>Editar Comentario</h1>
+
+<div class="left_title">Edit Your Comment</div>
+
+<div class="clear"></div>
 
 <form method='post' action='/posts/<%= post.id %>/comments/<%= comment.id %>'>
 
   <input type='hidden' name='_method' value='put'>
 
-  <%- include _form.ejs %>
+    <div class="left_box" id="all_form">
+        <div class="all_form">
+
+    <% include _form.ejs %>
+
+    </div></div>
 
 </form>
 
 
-<A href="/posts/<%= post.id %>"> Cancelar </a>
