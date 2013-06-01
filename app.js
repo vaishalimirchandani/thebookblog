@@ -12,7 +12,8 @@ var express = require('express')
   , sessionController = require('./routes/session_controller.js')
   , postController = require('./routes/post_controller.js')
   , userController = require('./routes/user_controller.js')
-  , commentController = require('./routes/comment_controller.js');
+  , commentController = require('./routes/comment_controller.js')
+  , sessionTime = require('./session_time');
 
 var util = require('util');
 
@@ -21,6 +22,7 @@ var app = express();
 //installl middleware to renderpartial
 app.use(partials());
 app.use(count.count_mw());
+
 
 
 
@@ -51,6 +53,7 @@ app.configure(function(){
         next();
     });
 
+    app.use(sessionTime.sessionTime_mw());
     app.use(app.router);
     app.use(express.static(path.join(__dirname, 'public')));
 });

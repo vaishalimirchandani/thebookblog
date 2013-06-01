@@ -31,6 +31,10 @@ module.exports = function(sequelize, DataTypes) {
             },
             salt: {
                 type: DataTypes.STRING
+            },
+            time:{
+                type: DataTypes.INTEGER,
+                defaultValue: 0
             }
 
         });

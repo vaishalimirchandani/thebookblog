@@ -44,6 +44,33 @@ exports.loggedUserIsUser = function(req, res, next) {
 };
 
 
+/*
+ * Updates de time field in the model to check if session has expired...
+ */
+
+exports.updateTimeColumn = function(req, res, next) {
+
+    models.User.find({where:{id:req.session.user.id}})
+        .success(function(user){
+            if(user){
+                user.time = req.session.user.time;
+                user.save(['time'])
+                    .success(function() {
+                        console.log('User time updated to: ' + req.session.user.time);
+                    })
+                    .error(function(error) {
+                        next(error);
+                    });
+            }
+        })
+        .error(function(err){
+            next(error);
+        });
+
+
+
+};
+
 
 
 // ----------------------------------

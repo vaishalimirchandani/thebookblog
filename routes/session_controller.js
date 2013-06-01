@@ -71,16 +71,20 @@ exports.create = function(req, res) {
             if (util.isError(error)) {
                 next(error);
             } else {
-                req.flash('error', 'An error occurred: '+error);
+                req.flash('error', 'Se ha producido un error: '+error);
                 res.redirect("/login?redir="+redir);
             }
             return;
         }
 
+        //time in seconds to add it to req.session.user.time
+        var timeInSeconds = new Date().getTime() / 1000;
+
+
         // IMPORTANTE: creo req.session.user.
         // Solo guardo algunos campos del usuario en la sesion.
         // Esto es lo que uso para saber si he hecho login o no.
-        req.session.user = {id:user.id, login:user.login, name:user.name};
+        req.session.user = {id:user.id, login:user.login, name:user.name, time:timeInSeconds};
 
         // Vuelvo al url indicado en redir
         res.redirect(redir);
