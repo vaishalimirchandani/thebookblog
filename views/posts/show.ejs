@@ -6,7 +6,7 @@
 
 <div class="left_box" id="welcome_box">
 
-    <div class="left_box_title"><b><%= post.title %></b><br />by <em>El autor</em></div>
+    <div class="left_box_title"><b><%= post.title %></b><br />by <em><%= post.author && post.author.name || 'No Author' %></em></div>
 
     <p class="details"><%= post.updatedAt.toLocaleDateString() %>
     </p>
@@ -16,8 +16,11 @@
 
 </div>
 
-<div class="left_box post" id="footer">
-    <p>
-    <a href="/posts/<%= post.id %>/edit">Edit</a> &emsp; <a href="/posts">Back</a>
-    </p>
-</div>
+    <div class="left_box post" id="footer">
+        <p>
+        <% if (session.user && session.user.id == posts[i].authorId) {%>
+            <a href="/posts/<%= post.id %>/edit">Edit</a> &emsp;
+        <% } %>
+        <a href="/posts">Back</a>
+        </p>
+    </div>

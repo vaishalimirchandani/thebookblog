@@ -97,21 +97,30 @@ app.get('/logout', sessionController.destroy);
 app.param('postid', postController.load);
 
 app.get('/posts.:format?', postController.index);
+
 app.get('/posts/new',
     sessionController.requiresLogin,
     postController.new);
+
 app.get('/posts/:postid([0-9]+).:format?', postController.show);
+
 app.post('/posts',
     sessionController.requiresLogin,
     postController.create);
+
 app.get('/posts/:postid([0-9]+)/edit',
     sessionController.requiresLogin,
+    postController.loggedUserIsAuthor,
     postController.edit);
+
 app.put('/posts/:postid([0-9]+)',
     sessionController.requiresLogin,
+    postController.loggedUserIsAuthor,
     postController.update);
+
 app.delete('/posts/:postid([0-9]+)',
     sessionController.requiresLogin,
+    postController.loggedUserIsAuthor,
     postController.destroy);
 app.post('/posts/search.:format?', postController.search);
 
