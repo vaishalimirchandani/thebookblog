@@ -5,7 +5,6 @@
  * Time: 9:07 PM
  */
 var models = require('../models/models.js');
-var count = require('.././count');
 
 /*
  * Comprueba que el usuario logeado es el author.
@@ -52,10 +51,7 @@ exports.index = function(req, res, next) {
             switch (format) {
                 case 'html':
                 case 'htm':
-                    res.render('posts/index', {
-                        posts: posts,
-                        counter: count.getCount()
-                    });
+                    res.render('posts/index', {posts: posts});
                     break;
                 case 'json':
                     res.send(posts);
@@ -100,27 +96,46 @@ exports.show = function(req, res, next) {
             // Si encuentro al autor lo añado como el atributo author, sino añado {}.
             req.post.author = user || {};
 
-            var format = req.params.format || 'html';
-            format = format.toLowerCase();
+            // Buscar comentarios
+            models.Comment
+                .findAll({where: {postId: req.post.id},
+                    order: 'updatedAt DESC',
+                    include: [ { model: models.User, as: 'Author' } ]
+                })
+                .success(function(comments) {
 
-            switch (format) {
-                case 'html':
-                case 'htm':
-                    res.render('posts/show', { post: req.post, counter: count.getCount() });
-                    break;
-                case 'json':
-                    res.send(req.post);
-                    break;
-                case 'xml':
-                    res.send(post_to_xml(req.post));
-                    break;
-                case 'txt':
-                    res.send(req.post.title+' ('+req.post.body+')');
-                    break;
-                default:
-                    console.log('No se soporta el formato \".'+format+'\" pedido para \"'+req.url+'\".');
-                    res.send(406);
-            }
+                    var format = req.params.format || 'html';
+                    format = format.toLowerCase();
+
+                    switch (format) {
+                        case 'html':
+                        case 'htm':
+                            var new_comment = models.Comment.build({
+                                body: 'Write your Comment'
+                            });
+                            res.render('posts/show', {
+                                post: req.post,
+                                comments: comments,
+                                comment: new_comment
+                            });
+                            break;
+                        case 'json':
+                            res.send(req.post);
+                            break;
+                        case 'xml':
+                            res.send(post_to_xml(req.post));
+                            break;
+                        case 'txt':
+                            res.send(req.post.title+' ('+req.post.body+')');
+                            break;
+                        default:
+                            console.log('No se soporta el formato \".'+format+'\" pedido para \"'+req.url+'\".');
+                            res.send(406);
+                    }
+                })
+                .error(function(error) {
+                    next(error);
+                });
 
         })
         .error(function(error) {
@@ -146,7 +161,7 @@ exports.new = function(req, res, next) {
         { title: 'Write in the book title',
             body: 'Write in the book synopsis and your Comments'
         });
-    res.render('posts/new', {post: post, counter: count.getCount()});
+    res.render('posts/new', {post: post});
 };
 
 
@@ -171,7 +186,6 @@ exports.create = function(req, res, next) {
         };
 
         res.render('posts/new', {post: post,
-                                counter: count.getCount(),
                                 validate_errors: validate_errors});
         return;
     }
@@ -190,7 +204,7 @@ exports.create = function(req, res, next) {
 
 // GET /posts/33/edit
 exports.edit = function(req, res, next) {
-    res.render('posts/edit', {post: req.post, counter: count.getCount()});
+    res.render('posts/edit', {post: req.post});
 };
 
 
@@ -209,7 +223,6 @@ exports.update = function(req, res, next) {
         };
 
         res.render('posts/edit', {post: req.post,
-                                  counter: count.getCount(),
                                   validate_errors: validate_errors});
         return;
     }
@@ -228,10 +241,29 @@ exports.update = function(req, res, next) {
 // DELETE /posts/33
 exports.destroy = function(req, res, next) {
 
-    req.post.destroy()
-        .success(function() {
-            req.flash('success', 'The book was deleted.');
-            res.redirect('/posts');
+    var Sequelize = require('sequelize');
+    var chainer = new Sequelize.Utils.QueryChainer
+
+    // Obtener los comentarios
+    req.post.getComments()
+        .success(function(comments) {
+            for (var i in comments) {
+                // Eliminar un comentario
+                chainer.add(comments[i].destroy());
+            }
+
+            // Eliminar el post
+            chainer.add(req.post.destroy());
+
+            // Ejecutar el chainer
+            chainer.run()
+                .success(function(){
+                    req.flash('success', 'The book and its related comments was deleted.');
+                    res.redirect('/posts');
+                })
+                .error(function(errors){
+                    next(errors[0]);
+                })
         })
         .error(function(error) {
             next(error);
@@ -250,8 +282,7 @@ exports.search = function(req, res, next) {
         .success(function(posts) {
             res.render('posts/search', {
                 written: written,
-                posts: posts,
-                counter: count.getCount()
+                posts: posts
             });
         })
         .error(function(error) {

@@ -27,3 +27,18 @@
         <a href="/posts">Back</a>
         </p>
     </div>
+
+    <hr />
+    <%- include ../comments/index.ejs %>
+    <hr />
+
+    <% if (session.user) { %>
+       <blockquote>
+          <%- include ../comments/new.ejs %>
+       </blockquote>
+       <hr />
+    <% } %>
+
+    <div class="left_box post" id="footer">
+        <p><a href="/posts">Back</a></p>
+    </div>

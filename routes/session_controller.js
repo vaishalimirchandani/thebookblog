@@ -6,8 +6,6 @@
  */
 
 var util = require('util');
-var count = require('.././count');
-
 
 // Middleware: Login is required:
 //
@@ -40,7 +38,7 @@ exports.requiresLogin = function (req, res, next) {
 exports.new = function(req, res) {
 
     res.render('session/new',
-        { redir: req.query.redir || '/', counter: count.getCount()
+        { redir: req.query.redir || '/'
         });
 };
 

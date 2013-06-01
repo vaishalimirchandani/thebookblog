@@ -11,7 +11,8 @@ var express = require('express')
   , count = require('./count')
   , sessionController = require('./routes/session_controller.js')
   , postController = require('./routes/post_controller.js')
-  , userController = require('./routes/user_controller.js');
+  , userController = require('./routes/user_controller.js')
+  , commentController = require('./routes/comment_controller.js');
 
 var util = require('util');
 
@@ -20,6 +21,8 @@ var app = express();
 //installl middleware to renderpartial
 app.use(partials());
 app.use(count.count_mw());
+
+
 
 app.configure(function(){
     app.set('port', process.env.PORT || 3000);
@@ -42,6 +45,8 @@ app.configure(function(){
 
         // Hacer visible req.session en las vistas
         res.locals.session = req.session;
+
+        res.locals.counter = count.getCount();
 
         next();
     });
@@ -86,15 +91,21 @@ app.locals.escapeText =  function(text) {
 //ROUTES
 app.get('/', routes.index);
 
-//---------------------
+// Auto-Loading:
+
+app.param('postid', postController.load);
+app.param('userid', userController.load);
+app.param('commentid', commentController.load);
+
+
+//--------------------- Session
 
 app.get('/login',  sessionController.new);
 app.post('/login', sessionController.create);
 app.get('/logout', sessionController.destroy);
 
-//---------------------
 
-app.param('postid', postController.load);
+//--------------------- Post
 
 app.get('/posts.:format?', postController.index);
 
@@ -124,9 +135,46 @@ app.delete('/posts/:postid([0-9]+)',
     postController.destroy);
 app.post('/posts/search.:format?', postController.search);
 
-//---------------------
 
-app.param('userid', userController.load);
+//--------------------- Comments
+
+app.get('/posts/:postid([0-9]+)/comments',
+    commentController.index);
+
+app.get('/posts/:postid([0-9]+)/comments/new',
+    sessionController.requiresLogin,
+    commentController.new);
+
+app.get('/posts/:postid([0-9]+)/comments/:commentid([0-9]+)',
+    commentController.show);
+
+app.post('/posts/:postid([0-9]+)/comments',
+    sessionController.requiresLogin,
+    commentController.create);
+
+app.get('/posts/:postid([0-9]+)/comments/:commentid([0-9]+)/edit',
+    sessionController.requiresLogin,
+    commentController.loggedUserIsAuthor,
+    commentController.edit);
+
+app.put('/posts/:postid([0-9]+)/comments/:commentid([0-9]+)',
+    sessionController.requiresLogin,
+    commentController.loggedUserIsAuthor,
+    commentController.update);
+
+app.delete('/posts/:postid([0-9]+)/comments/:commentid([0-9]+)',
+    sessionController.requiresLogin,
+    commentController.loggedUserIsAuthor,
+    commentController.destroy);
+
+// Comentarios Huerfanos
+app.get('/orphancomments',
+    commentController.orphans);
+
+
+
+//--------------------- Users
+
 
 app.get('/users', userController.index);
 app.get('/users/new', userController.new);
@@ -149,7 +197,12 @@ app.delete('/users/:userid([0-9]+)',
     sessionController.requiresLogin,
     userController.destroy);*/
 
+
 //---------------------
+
+
+
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

@@ -7,7 +7,6 @@
 
 var models = require('../models/models.js');
 var crypto = require('crypto');
-var count = require('.././count');
 
 
 /*
@@ -58,7 +57,7 @@ exports.index = function(req, res, next) {
         .findAll({order: 'name'})
         .success(function(users) {
             res.render('users/index', {
-                users: users, counter: count.getCount()
+                users: users
             });
         })
         .error(function(error) {
@@ -70,7 +69,7 @@ exports.index = function(req, res, next) {
 exports.show = function(req, res, next) {
 
     res.render('users/show', {
-        user: req.user, counter: count.getCount()
+        user: req.user
     });
 };
 
@@ -83,7 +82,7 @@ exports.new = function(req, res, next) {
             email: 'Your Email'
         });
 
-    res.render('users/new', {user: user, counter: count.getCount()});
+    res.render('users/new', {user: user});
 };
 
 // POST /users
@@ -105,8 +104,7 @@ exports.create = function(req, res, next) {
                     { user: user,
                         validate_errors: {
                             login: 'Username \"'+ req.body.user.login +'\" already exists.'
-                        },
-                        counter: count.getCount()
+                        }
                     });
                 return;
             } else {
@@ -119,8 +117,7 @@ exports.create = function(req, res, next) {
                         req.flash('error', validate_errors[err]);
                     };
                     res.render('users/new', {user: user,
-                        validate_errors: validate_errors,
-                        counter: count.getCount()
+                        validate_errors: validate_errors
                     });
                     return;
                 }
@@ -155,7 +152,7 @@ exports.create = function(req, res, next) {
 // GET /users/33/edit
 exports.edit = function(req, res, next) {
 
-    res.render('users/edit', {user: req.user, counter: count.getCount()});
+    res.render('users/edit', {user: req.user});
 };
 
 // PUT /users/33
@@ -174,7 +171,7 @@ exports.update = function(req, res, next) {
             req.flash('error', validate_errors[err]);
         };
         res.render('users/edit', {user: req.user,
-            validate_errors: validate_errors, counter: count.getCount()});
+            validate_errors: validate_errors});
         return;
     }
 
