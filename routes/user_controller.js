@@ -31,6 +31,22 @@ exports.load = function(req, res, next, id) {
         });
 };
 
+/*
+ * Comprueba que el usuario logeado es el usuario alque se refiere esta ruta.
+ */
+exports.loggedUserIsUser = function(req, res, next) {
+
+    if (req.session.user && req.session.user.id == req.user.id) {
+        next();
+    } else {
+        console.log('Forbidden Route: The logged user is not the author of this post..');
+        res.send(403);
+    }
+};
+
+
+
+
 // ----------------------------------
 // Rutas
 // ----------------------------------

@@ -25,6 +25,9 @@
 
 <div class="left_box post" id="footer">
     <p>
-    <a href="/users/<%= user.id %>/edit">Edit</a> &emsp; <a href="/users">Back</a>
+    <% if (session.user && session.user.id == user.id) {%>
+        <a href="/users/<%= user.id %>/edit">Edit</a> &emsp;
+    <% } %>
+    <a href="/users">Back</a>
     </p>
 </div>

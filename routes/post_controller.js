@@ -15,7 +15,7 @@ exports.loggedUserIsAuthor = function(req, res, next) {
     if (req.session.user && req.session.user.id == req.post.authorId) {
         next();
     } else {
-        console.log('Forbidden: The user is not the author of this post.');
+        console.log('Forbidden: The logged user is not the author of this post.');
         res.send(403);
     }
 };

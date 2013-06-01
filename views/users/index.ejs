@@ -11,7 +11,11 @@
             <td>Login</td>
             <td>Name</td>
             <td>Email</td>
-            <td colspan="3">&nbsp;</td>
+            <% if (session.user && session.user.id == users[i].id) {%>
+                <td colspan="2">&nbsp;</td>
+            <% } else {%>
+                <td>&nbsp;</td>
+            <% } %>
 
           </tr>
 
@@ -21,15 +25,18 @@
                 <td> <%= users[i].name %>  </td>
                 <td> <%= users[i].email %> </td>
                 <td><a href="/users/<%= users[i].id %>"> Details </a></td>
-                <td><a href="/users/<%= users[i].id %>/edit"> Edit </a></td>
-                <td>
-                    <form method='post' action='/users/<%= users[i].id %>'>
-                        <input type='hidden' name='_method' value='delete'>
+                <% if (session.user && session.user.id == users[i].id) {%>
+                    <td><a href="/users/<%= users[i].id %>/edit"> Edit </a></td>
+                <% } %>
+                <% if (false) { %>
+                    <td>
+                        <form method='post' action='/users/<%= users[i].id %>'>
+                            <input type='hidden' name='_method' value='delete'>
 
-                        <a href="" onclick="submit();return false">Delete</a>
-                    </form>
-
-                </td>
+                            <a href="" onclick="submit();return false">Delete</a>
+                        </form>
+                    </td>
+                <% } %>
             </tr>
         <%  }; %>
         </table>

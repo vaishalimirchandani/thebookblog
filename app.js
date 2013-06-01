@@ -132,15 +132,22 @@ app.get('/users', userController.index);
 app.get('/users/new', userController.new);
 app.get('/users/:userid([0-9]+)', userController.show);
 app.post('/users', userController.create);
+
 app.get('/users/:userid([0-9]+)/edit',
     sessionController.requiresLogin,
+    userController.loggedUserIsUser,
     userController.edit);
+
 app.put('/users/:userid([0-9]+)',
     sessionController.requiresLogin,
+    userController.loggedUserIsUser,
     userController.update);
+
+/*
+We do not allow to to delete users->there is relations that will crash and stuff like that
 app.delete('/users/:userid([0-9]+)',
     sessionController.requiresLogin,
-    userController.destroy);
+    userController.destroy);*/
 
 //---------------------
 
