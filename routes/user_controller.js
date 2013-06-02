@@ -52,7 +52,7 @@ exports.updateTimeColumn = function(req, res, next) {
 
     models.User.find({where:{id:req.session.user.id}})
         .success(function(user){
-            if(user){
+            if(user && req.session && req.session.user){
                 user.time = req.session.user.time;
                 user.save(['time'])
                     .success(function() {

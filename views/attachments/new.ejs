@@ -1,17 +1,29 @@
-<h1>Upload Attachment</h1>
+<div class="left_title">Upload Attachment</div>
+
+<div class="clear"></div>
 
 <form method='post' action='/posts/<%= post.id %>/attachments'  enctype='multipart/form-data'>
 
-  <div class='field'>
-    <label for="attachment">Choose a File to Upload (max 500KB):</label><br />
-    <input type="file" id="attachment" name="adjunto" />
+  <div class="left_box" id="all_form">
+      <div class="all_form">
+
+          <div class="all_form_subtitle">choose a file to upload (max 500KB)</div>
+
+          <div class="all_form_row">
+              <div class="all_field">
+                  <input type="file" id="attachment" name="adjunto" />
+              </div>
+          </div>
+
+          <div class="all_form_row">
+              <div class="actions contact">
+                  <input class="submit_button" name="commit" type="submit" value="Upload" />
+                  <input class="submit_button" type="button" value="Cancel" onClick="location.href='/posts/<%= post.id %>'"/>
+              </div>
+          </div>
+      </div>
   </div>
 
-  <div class="actions">
-    <input name="commit" type="submit" value="Upload" />
-  </div>
-
+  <div class="clear"></div>
 
 </form>
-
-<a href="/posts/<%= post.id %>"> Cancel </a>
