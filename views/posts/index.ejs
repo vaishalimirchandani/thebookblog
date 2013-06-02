@@ -9,13 +9,13 @@
     <div class="left_box post">
 
         <div class="left_box_title">
-            <a href='/posts/<%= posts[i].id %>' class='titlelink'><%= posts[i].title %> </a>
-            <br/>
-            <em class="author"> <%= posts[i].author && posts[i].author.name || "No Author" %> </em>
+            <a href='/posts/<%= posts[i].id %>' class='titlelink'><%= posts[i].title %> </a> <br/>
+            <em class="author"> by <%= posts[i].author && posts[i].author.name || "No Author" %> </em>
         </div>
 
         <div>
             <p class="details"><%= posts[i].body.slice(0,300) %> ...</p>
+            <em><p class="details"><%= posts[i].comments.length%> comments.<p></em>
         </div>
 
         <div>

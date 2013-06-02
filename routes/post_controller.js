@@ -46,7 +46,7 @@ exports.index = function(req, res, next) {
     format = format.toLowerCase();
 
     models.Post
-        .findAll({order: 'updatedAt DESC', include: [ { model: models.User, as: 'Author' } ]})
+        .findAll({order: 'updatedAt DESC', include: [ { model: models.Comment, as: 'Comments'},{ model: models.User, as: 'Author' } ]})
         .success(function(posts) {
             switch (format) {
                 case 'html':
@@ -84,7 +84,6 @@ function posts_to_xml(posts) {
 }
 
 
-
 // GET /posts/33
 exports.show = function(req, res, next) {
 
@@ -106,32 +105,34 @@ exports.show = function(req, res, next) {
 
                     var format = req.params.format || 'html';
                     format = format.toLowerCase();
-
-                    switch (format) {
-                        case 'html':
-                        case 'htm':
-                            var new_comment = models.Comment.build({
-                                body: 'Write your Comment'
-                            });
-                            res.render('posts/show', {
-                                post: req.post,
-                                comments: comments,
-                                comment: new_comment
-                            });
-                            break;
-                        case 'json':
-                            res.send(req.post);
-                            break;
-                        case 'xml':
-                            res.send(post_to_xml(req.post));
-                            break;
-                        case 'txt':
-                            res.send(req.post.title+' ('+req.post.body+')');
-                            break;
-                        default:
-                            console.log('No se soporta el formato \".'+format+'\" pedido para \"'+req.url+'\".');
-                            res.send(406);
-                    }
+                    models.Comment.count({ where: {postId: req.post.id}}).success(function(c) {
+                        switch (format) {
+                            case 'html':
+                            case 'htm':
+                                var new_comment = models.Comment.build({
+                                    body: 'Write your Comment'
+                                });
+                                res.render('posts/show', {
+                                    post: req.post,
+                                    comments: comments,
+                                    commentsNumber:c,
+                                    comment: new_comment
+                                });
+                                break;
+                            case 'json':
+                                res.send(req.post);
+                                break;
+                            case 'xml':
+                                res.send(post_to_xml(req.post));
+                                break;
+                            case 'txt':
+                                res.send(req.post.title+' ('+req.post.body+')');
+                                break;
+                            default:
+                                console.log('No se soporta el formato \".'+format+'\" pedido para \"'+req.url+'\".');
+                                res.send(406);
+                        }
+                    });
                 })
                 .error(function(error) {
                     next(error);

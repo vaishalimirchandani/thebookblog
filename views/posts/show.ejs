@@ -11,10 +11,12 @@
         <em class="author">by  <%= post.author && post.author.name || 'No Author' %></em>
     </div>
 
-    <p class="details"><%= post.updatedAt.toLocaleDateString() %>
-    </p>
-    <p class="details"><%- escapeText(post.body) %></p>
+    <em><p class="details"><%= post.updatedAt.toLocaleDateString() %></p></em>
 
+    <div>
+        <p class="details"><%- escapeText(post.body) %></p>
+        <em><p class="details"><%= commentsNumber %> comments.<p></em>
+    </div>
     <div class="clear"></div>
 
     <div class="left_box post" id="footer">

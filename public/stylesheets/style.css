@@ -235,6 +235,14 @@ a.more{
     padding:5px 0 0 15px;
     font-size:13px;
 }
+.left_box_title a{
+    font-size:13px;
+    font-weight: bold;
+    text-decoration: none;
+}
+.left_box_title a:hover{
+    text-decoration: underline;
+}
 
 .left_box#footer{
     border-bottom:none;
