@@ -26,11 +26,12 @@ var sequelize = new Sequelize(process.env.DATABASE_NAME,
 //    - Post desde post.js.
 //    - User desde user.js.
 //    - Comment desde comment.js.
+//    - Attachment desde attachment.js.
 
 var Post = sequelize.import(path.join(__dirname,'post'));
 var User = sequelize.import(path.join(__dirname,'user'));
 var Comment = sequelize.import(path.join(__dirname,'comment'));
-
+var Attachment = sequelize.import(path.join(__dirname,'attachment'));
 
 // Relaciones
 
@@ -42,8 +43,12 @@ var Comment = sequelize.import(path.join(__dirname,'comment'));
 // Como el atributo del modelo Post que apunta a User se llama authorId
 // en vez de UserId, he añadido una opcion que lo indica.
 User.hasMany(Post, {foreignKey: 'authorId'});
+
 User.hasMany(Comment, {foreignKey: 'authorId'});
 Post.hasMany(Comment, {foreignKey: 'postId'});
+
+Post.hasMany(Attachment, {foreignKey: 'postId'});
+
 
 // La llamada Post.belongsTo(User);
 //  - crea en el modelo de Post un atributo llamado UserId,
@@ -57,13 +62,13 @@ Post.belongsTo(User, {as: 'Author', foreignKey: 'authorId'});
 
 Comment.belongsTo(User, {as: 'Author', foreignKey: 'authorId'});
 Comment.belongsTo(Post, {foreignKey: 'postId'});
-
+Attachment.belongsTo(Post, {foreignKey: 'postId'});
 
 // Exportar los modelos:
 exports.Post = Post;
 exports.User = User;
 exports.Comment = Comment;
-
+exports.Attachment = Attachment;
 
 
 // No hace falta si migración se hace a mano
