@@ -32,7 +32,7 @@
                             : "field" %>'>
                     <% if ( ! user.id) { %>
                         <label for="user_login">Username:</label><br />
-                        <input type="text" id="user_login" class="all_input" name="user[login]" value='<%= user.login%>' />
+                        <input type="text" id="user_login" class="all_input" name="user[login]" placeholder='<%= user.login%>' />
                     <% } else { %>
                         Username: <%= user.login %>
                     <% } %>
@@ -48,7 +48,7 @@
                             ? "invalid_field"
                             : "field" %>'>
                     <label for="user_name">Nombre</label><br />
-                    <input type="text" id="user_name" class="all_input" name="user[name]" value='<%= user.name%>' />
+                    <input type="text" id="user_name" class="all_input" name="user[name]" placeholder='<%= user.name%>' />
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@
                             ? "invalid_field"
                             : "field" %>'>
                     <label for="user_email">Email</label><br />
-                    <input type="text" id="user_email" class="all_input" name="user[email]" value='<%= user.email %>' />
+                    <input type="text" id="user_email" class="all_input" name="user[email]" placeholder='<%= user.email %>' />
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@
         <div class="all_form_row">
             <div class="all_field">
                     <label for="user_password">Password:</label><br />
-                    <input type="password" id="user_password" class="all_input" name="user[password]" value='' />
+                    <input type="password" id="user_password" class="all_input" name="user[password]"  />
                 </div>
             </div>
 
@@ -80,7 +80,7 @@
         <div class="all_form_row">
             <div class="all_field">
                 <label for="user_confirm_password">Confirmar Password:</label><br />
-                <input type="password" id="user_confirm_password" class="all_input" value='' />
+                <input type="password" id="user_confirm_password" class="all_input"  />
             </div>
         </div>
 

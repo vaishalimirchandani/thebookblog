@@ -356,7 +356,8 @@ a.more{
     background-color:#fff;
     border:1px #DFDFDF solid;
     float:left;
-    width: 100%
+    width: 100%;
+    resize: none;
 }
 
 .all_form_subtitle{
