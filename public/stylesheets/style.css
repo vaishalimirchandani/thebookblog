@@ -255,7 +255,7 @@ a.more{
     text-decoration: underline;
 }
 
-.left_box#footer{
+.left_box.footer{
     border-bottom:none;
     float:left;
     font-size:15px;
@@ -263,16 +263,16 @@ a.more{
 
 }
 
-.left_box#footer p  {
+.left_box.footer p  {
     text-align: right ;
 }
-.left_box#footer p a {
+.left_box.footer p a {
     font-weight: bold;
     color:#734633;
 
 }
 
-.left_box#footer > a {
+.left_box.footer > a {
     font-weight: bold;
     color:#734633;
 }
