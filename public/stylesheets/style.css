@@ -169,6 +169,7 @@ a.more{
     width:34%;
     background:url("../images/bg_center_right.png") repeat;
     margin-left: 0;
+    height:100%
 
 
 }
@@ -177,6 +178,7 @@ a.more{
     width:66%;
     background:url("../images/bg_center_left.png") repeat-y right;
     background-color: white;
+    height:100%
 }
 
 
