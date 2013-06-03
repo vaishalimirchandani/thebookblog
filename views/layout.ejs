@@ -21,11 +21,11 @@
 <div class="header">
 
     <div class="header_left"><img src="/images/header_left.png" alt=""></div>
-    <div class="header_right"><img src="/images/header_right.png" alt=""></div>
+    <div class="hidden-phone header_right"><img src="/images/header_right.png" alt=""></div>
     <div class="logo"><a href="/"><img src="/images/logo.png" alt="" title="" border="0" /></a></div>
 
 
-    <form method='post' action='/posts/search'>
+    <div class="hidden-phone"><form method='post' action='/posts/search'>
         <div class = "menu" id="search_form">
             <div class="search_form_row">
                 <label for="post_title"></label>
@@ -33,7 +33,7 @@
                 <input class="submit_button" name="commit" type="submit" value="Search" />
             </div>
         </div>
-    </form>
+    </form></div>
 
 
     <div class = "menu" id="menu">
@@ -175,6 +175,7 @@
         if (myWidth < 768){
             document.getElementById('kk').style.width = '100%'
             document.getElementById('register').style.display = 'inline'
+            document.body.style.minWidth = '375px';
         }
 
 
@@ -225,12 +226,13 @@
         ){
             document.getElementById('kk').style.width = '100%'
             document.getElementById('register').style.display = 'inline'
+            document.body.style.minWidth = '375px';
         }
         else{
             document.getElementById('kk').style.width = '66%'
             document.getElementById('register').style.display = 'none'
+            document.body.style.minWidth = '780px';
         }
-        alert (myWidth);
     }
 </script>
 
