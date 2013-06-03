@@ -180,6 +180,9 @@ a.more{
     background-color: white;
     height:100%
 }
+.span12.personalize{
+    height:100%!important
+}
 
 
 .container2 {
