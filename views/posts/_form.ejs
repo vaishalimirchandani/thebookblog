@@ -7,7 +7,7 @@
                                                                 ? "error" : "" %>'>
                     <label class='control-label' for="all_title">Book Title</label><br />
                     <div class='controls'>
-                        <input type="text" id="all_title" class="all_input" name="post[title]" placeholder='<%= post.title%>' />
+                        <input type="text" id="all_title" class="all_input" name="post[title]" placeholder='Write in the book Title' value="<%= post.title%>" />
                     </div>
                 </div>
             </div>
@@ -21,7 +21,7 @@
                                                                 ? "error" : "" %>'>
                     <label class='control-label' for="all_body">Synopsis</label><br />
                     <div class='controls'>
-                        <textarea id="all_body" class="all_textarea" name="post[body]" rows="20"><%= post.body %>
+                        <textarea id="all_body" class="all_textarea" name="post[body]" rows="20" placeholder='Write in the book synopsis and your Comments'><%= post.body %>
                         </textarea>
                     </div>
                 </div>

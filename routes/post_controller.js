@@ -169,8 +169,8 @@ function post_to_xml(post) {
 // GET /posts/new
 exports.new = function(req, res, next) {
     var post = models.Post.build(
-        { title: 'Write in the book title',
-            body: 'Write in the book synopsis and your Comments'
+        { title: '',
+            body: ''
         });
     res.render('posts/new', {post: post});
 };

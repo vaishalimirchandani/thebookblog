@@ -263,16 +263,16 @@ a.more{
 
 }
 
-.left_box.footer p  {
+.left_box.subfooter p  {
     text-align: right ;
 }
-.left_box.footer p a {
+.left_box.subfooter p a {
     font-weight: bold;
     color:#734633;
 
 }
 
-.left_box.footer > a {
+.left_box.subfooter > a {
     font-weight: bold;
     color:#734633;
 }

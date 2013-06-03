@@ -32,7 +32,7 @@
                     <% if ( ! user.id) { %>
                         <label class='control-label' for="user_login">Username:</label><br />
                         <div class='controls'>
-                            <input type="text" id="user_login" class="all_input" name="user[login]" placeholder='<%= user.login%>' />
+                            <input type="text" id="user_login" class="all_input" name="user[login]" placeholder='Your Username' value="<%= user.login%>"/>
                         </div>
                     <% } else { %>
                         Username: <%= user.login %>
@@ -49,7 +49,7 @@
                                                 ? "error" : "" %>'>
                     <label class='control-label' for="user_name">Nombre</label><br />
                     <div class='controls'>
-                    <input type="text" id="user_name" class="all_input" name="user[name]" placeholder='<%= user.name%>' />
+                    <input type="text" id="user_name" class="all_input" name="user[name]" placeholder='Your Name' value="<%= user.name%>" />
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                                                 ? "error" : "" %>'>
                     <label class='control-label' for="user_email">Email</label><br />
                     <div class='controls'>
-                        <input type="text" id="user_email" class="all_input" name="user[email]" placeholder='<%= user.email %>' />
+                        <input type="text" id="user_email" class="all_input" name="user[email]" placeholder='Your Email' value="<%= user.email%>"/>
                     </div>
                 </div>
             </div>

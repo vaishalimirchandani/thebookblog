@@ -104,9 +104,9 @@ exports.show = function(req, res, next) {
 exports.new = function(req, res, next) {
 
     var user = models.User.build(
-        { login: 'Your Username',
-            name:  'Your Name',
-            email: 'Your Email'
+        { login: '',
+            name:  '',
+            email: ''
         });
 
     res.render('users/new', {user: user});
