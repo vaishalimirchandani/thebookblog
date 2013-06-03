@@ -99,7 +99,7 @@
     </div>
 
 
-    <div class="span4 blocks hidden-phone personalize" id="pp" >
+    <div class="span4 blocks hidden-phone hidden-tablet personalize" id="pp" >
         <div class="right_content">
             <div class="right_box">
                 <div class="right_title"><i class="icon-user"></i> User Information</div>
@@ -169,9 +169,10 @@
 
 
         myWidth = window.innerWidth;
-        if (myWidth < 767){
+        if (myWidth < 980){
             document.getElementById('kk').style.width = '100%'
         }
+
 
         var currentTallest = 0,
              currentRowStart = 0,
@@ -215,7 +216,7 @@
 
     window.onresize = function(event) {
         myWidth = window.innerWidth;
-        if (myWidth < 767){
+        if (myWidth < 995){
             document.getElementById('kk').style.width = '100%'
         }
         else{
