@@ -177,8 +177,7 @@
 
 <script type="text/javascript">
 
- document.getElementById('kk').style.height = '100%'
- console.log(document.getElementById('kk').style.height);
+
         myWidth = window.innerWidth;
         if (myWidth < 768){
             document.getElementById('kk').style.width = '100%'
@@ -187,9 +186,7 @@
         }
 
 
-        var highestCol = $('.span12').height();
-        $('.blocks').height(highestCol);
-        console.log(highestCol);
+
 
 
     window.onresize = function(event) {
@@ -206,6 +203,12 @@
             document.getElementById('register').style.display = 'none'
             document.body.style.minWidth = '780px';
         }
+    }
+
+    window.onload = function(event) {
+        var highestCol = $('.span12').height();
+        $('.blocks').height(highestCol);
+        console.log(highestCol);
     }
 </script>
 
