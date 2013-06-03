@@ -203,6 +203,7 @@
                 currentTallest = $el.height();
                 rowDivs.push($el);
 
+
             } else {
 
                 // another div on the current row.  Add it to the list and check if it's taller
@@ -215,7 +216,7 @@
             for (currentDiv = 0 ; currentDiv < rowDivs.length ; currentDiv++) {
                 rowDivs[currentDiv].height(currentTallest);
             }
-
+alert(currentTallest);
         });
 
 
