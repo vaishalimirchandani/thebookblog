@@ -3,11 +3,12 @@
     <div class="all_form_subtitle">all fields are required</div>
         <div class="all_form_row">
             <div class="all_field">
-                <div class='<%- locals.validate_errors && validate_errors.title
-                            ? "invalid_field"
-                            : "field" %>'>
-                    <label for="all_title">Book Title</label><br />
-                    <input type="text" id="all_title" class="all_input" name="post[title]" placeholder='<%= post.title%>' />
+                <div class='control-group <%- locals.validate_errors && validate_errors.login
+                                                                ? "error" : "" %>'>
+                    <label class='control-label' for="all_title">Book Title</label><br />
+                    <div class='controls'>
+                        <input type="text" id="all_title" class="all_input" name="post[title]" placeholder='<%= post.title%>' />
+                    </div>
                 </div>
             </div>
         </div>
@@ -16,12 +17,13 @@
 
         <div class="all_form_row">
             <div class="all_field">
-                <div class='<%- locals.validate_errors && validate_errors.body
-                                  ? "invalid_field"
-                                  : "field" %>'>
-                    <label for="all_body">Synopsis</label><br />
-                    <textarea id="all_body" class="all_textarea" name="post[body]" rows="20"><%= post.body %>
-                    </textarea>
+                <div class='control-group <%- locals.validate_errors && validate_errors.login
+                                                                ? "error" : "" %>'>
+                    <label class='control-label' for="all_body">Synopsis</label><br />
+                    <div class='controls'>
+                        <textarea id="all_body" class="all_textarea" name="post[body]" rows="20"><%= post.body %>
+                        </textarea>
+                    </div>
                 </div>
             </div>
         </div>

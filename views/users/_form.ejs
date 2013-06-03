@@ -27,12 +27,13 @@
 
         <div class="all_form_row">
             <div class="all_field">
-                <div class='<%- locals.validate_errors && validate_errors.title
-                            ? "invalid_field"
-                            : "field" %>'>
+                <div class='control-group <%- locals.validate_errors && validate_errors.login
+                                                                ? "error" : "" %>'>
                     <% if ( ! user.id) { %>
-                        <label for="user_login">Username:</label><br />
-                        <input type="text" id="user_login" class="all_input" name="user[login]" placeholder='<%= user.login%>' />
+                        <label class='control-label' for="user_login">Username:</label><br />
+                        <div class='controls'>
+                            <input type="text" id="user_login" class="all_input" name="user[login]" placeholder='<%= user.login%>' />
+                        </div>
                     <% } else { %>
                         Username: <%= user.login %>
                     <% } %>
@@ -44,11 +45,12 @@
 
         <div class="all_form_row">
             <div class="all_field">
-                <div class='<%- locals.validate_errors && validate_errors.title
-                            ? "invalid_field"
-                            : "field" %>'>
-                    <label for="user_name">Nombre</label><br />
+                <div class='control-group <%- locals.validate_errors && validate_errors.name
+                                                ? "error" : "" %>'>
+                    <label class='control-label' for="user_name">Nombre</label><br />
+                    <div class='controls'>
                     <input type="text" id="user_name" class="all_input" name="user[name]" placeholder='<%= user.name%>' />
+                    </div>
                 </div>
             </div>
         </div>
@@ -56,11 +58,12 @@
 
         <div class="all_form_row">
             <div class="all_field">
-                <div class='<%- locals.validate_errors && validate_errors.title
-                            ? "invalid_field"
-                            : "field" %>'>
-                    <label for="user_email">Email</label><br />
-                    <input type="text" id="user_email" class="all_input" name="user[email]" placeholder='<%= user.email %>' />
+                <div class='control-group <%- locals.validate_errors && validate_errors.email
+                                                ? "error" : "" %>'>
+                    <label class='control-label' for="user_email">Email</label><br />
+                    <div class='controls'>
+                        <input type="text" id="user_email" class="all_input" name="user[email]" placeholder='<%= user.email %>' />
+                    </div>
                 </div>
             </div>
         </div>

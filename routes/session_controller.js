@@ -71,7 +71,7 @@ exports.create = function(req, res) {
             if (util.isError(error)) {
                 next(error);
             } else {
-                req.flash('error', 'Se ha producido un error: '+error);
+                req.flash('error', ' '+error);
                 res.redirect("/login?redir="+redir);
             }
             return;

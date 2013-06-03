@@ -1,11 +1,23 @@
 <% if (comments.length == 0) { %>
     <div class="left_title comments">No Comments</div>
     <div class="clear"></div>
+    <% if (!session.user) {%>
+        <div class="left_box_title" STYLE="FLOAT:left;margin-left:90px">
+            <a href='/login?redir=/posts/<%=post.id%>' class="more"> Login to comment</a>
+            </div>
+        <div class="clear"></div>
+    <% }%>
 <% } else { %>
 
 <div class="left_title comments">Comments</div>
 
 <div class="clear"></div>
+<% if (!session.user) {%>
+    <div class="left_box_title" STYLE="FLOAT:left;margin-left:90px">
+        <a href='/login?redir=/posts/<%=post.id%>' class="more"> Login to comment</a>
+        </div>
+    <div class="clear"></div>
+<% }%>
 
 
 <% for (var i in comments) { %>

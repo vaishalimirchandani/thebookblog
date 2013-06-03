@@ -1,18 +1,20 @@
 
          <div class="all_form_row">
               <div class="all_field">
-                  <div class='<%- locals.validate_errors && validate_errors.body
-                                  ? "invalid_field"
-                                  : "field" %>'>
-                      <textarea id="comment_body" class="all_textarea" name="comment[body]" rows="10"><%= comment.body %>
-                      </textarea>
+                  <div class='control-group <%- locals.validate_errors && validate_errors.login
+                                                                  ? "error" : "" %>'>
+                      <div class='controls'>
+                          <textarea id="comment_body" class="all_textarea" name="comment[body]" rows="10"
+                            placeholder="<%= comment.body %>"><%= comment.body %>
+                          </textarea>
+                      </div>
                   </div>
               </div>
          </div>
 
         <div class="all_form_row">
             <div class="actions contact">
+                <input class="cancel_button" type="button" value="Cancel" onClick="location.href='/posts/<%= post.id %>'"/>
                 <input class="submit_button" name="commit" type="submit" value="Save" />
-                <input class="submit_button" type="button" value="Cancel" onClick="location.href='/posts/<%= post.id %>'"/>
             </div>
         </div>

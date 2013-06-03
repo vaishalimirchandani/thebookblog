@@ -3,7 +3,14 @@
 
 <head>
     <meta charset="utf-8">
+
+    <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+
+
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+
     <title>The Book Blog</title>
 </head>
 
@@ -19,7 +26,7 @@
         <div class = "menu" id="search_form">
             <div class="search_form_row">
                 <label for="post_title"></label>
-                <input type="text" id="" class="search_input" name="search_text" size="40" >
+                <input type="text" class="search_input" name="search_text" size="40" >
                 <input class="submit_button" name="commit" type="submit" value="Search" />
             </div>
         </div>
@@ -48,53 +55,53 @@
             <div class="left_content">
 
             <section>
-                    <% var flash = flash() %>
-                    <% if (flash.info) { %>
-                        <br/>
-                       <article id='flashinfo'>
-                         <h3>Information:</h3>
-                         <ul>
-                            <% for (var i in flash.info) { %>
-                              <li> <%= flash.info[i] %> </li>
-                            <% } %>
-                         </ul>
-                       </article>
-                    <% } %>
+               <% var flash = flash() %>
 
-                    <% if (flash.success) { %>
-                        <br/>
-                       <article id='flashsuccess'>
-                         <h3>Completed Tasks:</h3>
-                         <ul>
-                            <% for (var i in flash.success) { %>
-                               <li> <%= flash.success[i] %> </li>
-                            <% } %>
-                         </ul>
-                       </article>
-                    <% } %>
+                 <% if (flash.info) { %>
+                   <div class='alert alert-info'>
+                     <h3 class='alert-heading'>Information:</h3>
+                     <ul>
+                       <% for (var i in flash.info) { %>
+                         <li> <%= flash.info[i] %> </li>
+                       <% } %>
+                     </ul>
+                   </div>
+                 <% } %>
 
-                    <% if (flash.error) { %>
-                        <br/>
-                       <article id='flasherror'>
-                         <h3>Error's found:</h3>
-                         <ul>
-                            <% for (var i in flash.error) { %>
-                              <li> <%= flash.error[i] %> </li>
-                            <% } %>
-                         </ul>
-                       </article>
-                    <% } %>
+
+                 <% if (flash.success) { %>
+                   <div class='alert alert-success'>
+                     <h3 class='alert-heading'>Completed Tasks:</h3>
+                     <ul>
+                       <% for (var i in flash.success) { %>
+                         <li> <%= flash.success[i] %> </li>
+                       <% } %>
+                     </ul>
+                   </div>
+                 <% } %>
+
+
+                 <% if (flash.error) { %>
+                   <div class='alert alert-error'>
+                     <h3 class='alert-heading'>Error's found:</h3>
+                     <ul>
+                       <% for (var i in flash.error) { %>
+                         <li> <%= flash.error[i] %> </li>
+                       <% } %>
+                     </ul>
+                   </div>
+                 <% } %>
               </section>
 
                 <%- body %>
 
             </div><!--end of left content-->
 
-            <div class="right_content">
+            <div class="right_content hidden-phone">
 
                 <div class="right_box">
 
-                    <div class="right_title"><span class="title_icon"><img src="/images/bullet6.gif" alt="" title="" /></span>User Information</div>
+                    <div class="right_title"><i class="icon-user"></i> User Information</div>
                     <div class="clear"></div>
 
                     <div id='logininfo'>
@@ -116,7 +123,7 @@
 
                 <div class="right_box">
 
-                    <div class="right_title"><span class="title_icon"><img src="/images/bullet3.gif" alt="" title="" /></span>About The Book Blog</div>
+                    <div class="right_title"><i class="icon-book"></i> About The Book Blog</div>
                     <div class="clear"></div>
                     <a href="about.html">
                        <img src="/images/about.gif" alt="" title="" class="right" />
@@ -130,7 +137,7 @@
 
                 <div class="right_box">
 
-                   <div class="right_title"><span class="title_icon"><img src="/images/bullet5.gif" alt="" title="" /></span>Tags</div>
+                   <div class="right_title"><i class="icon-tags"></i> Tags</div>
 
                    <ul class="list">
                        <li><a href="#">tag1</a></li>

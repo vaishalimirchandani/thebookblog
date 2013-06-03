@@ -78,11 +78,6 @@ img.right{
     padding:0 0 0 10px;
 }
 
-span.title_icon{
-    float:left;
-    padding:0 5px 0 0;
-}
-
 a.more{
     font-style:italic;
     color:#f8981d;
@@ -345,7 +340,7 @@ a.more{
 .all_form input.all_input{
     background-color:#fff;
     color:#999999;
-    border:1px #DFDFDF solid;
+    border:1px solid;
     float:left;
     width: 100%
 }
@@ -381,6 +376,15 @@ a.more{
     background-color: #795636;
     color:#fff;
     border-color:#795636;
+}
+
+.cancel_button{
+    display:block;
+    float:right;
+    margin:0 0 0 10px;
+    background-color: #ccab8e;
+    color:#fff;
+    border-color:#ccab8e;
 }
 
 .left_box#all_form{
@@ -443,97 +447,6 @@ a.more{
 }
 
 
-/*---------flash messages---------*/
-
-#flashinfo {
-    width: 90%;
-    border: 2px solid blue;
-    padding: 7px;
-    padding-bottom: 0;
-    margin-bottom: 20px;
-    background-color: #f0f0f0;
-    margin-left: auto ;
-    margin-right: auto ;
-}
-
-#flashinfo h3 {
-    text-align: left;
-    font-weight: bold;
-    padding: 5px 5px 5px 15px;
-    font-size: 12px;
-    margin: -7px;
-    margin-bottom: 0;
-    background-color: #00c;
-    color: #fff;
-}
-
-#flashinfo ul li {
-    font-size: 12px;
-    list-style: square;
-}
-
-
-#flashsuccess {
-    width: 90%;
-    border: 2px solid green;
-    padding: 7px;
-    padding-bottom: 0;
-    margin-bottom: 20px;
-    background-color: #f0f0f0;
-    margin-left: auto ;
-    margin-right: auto ;
-}
-
-#flashsuccess h3 {
-    text-align: left;
-    font-weight: bold;
-    padding: 5px 5px 5px 15px;
-    font-size: 12px;
-    margin: -7px;
-    margin-bottom: 0;
-    background-color: #0c0;
-    color: #fff;
-}
-
-#flashsuccess ul li {
-    font-size: 12px;
-    list-style: square;
-}
-
-#flasherror {
-    width: 90%;
-    border: 2px solid red;
-    padding: 7px;
-    padding-bottom: 0;
-    margin-bottom: 20px;
-    background-color: #f0f0f0;
-    margin-left: auto ;
-    margin-right: auto ;
-}
-
-#flasherror h3 {
-    text-align: left;
-    font-weight: bold;
-    padding: 5px 5px 5px 15px;
-    font-size: 12px;
-    margin: -7px;
-    margin-bottom: 0;
-    background-color: #c00;
-    color: #fff;
-}
-
-#flasherror ul li {
-    font-size: 12px;
-    list-style: square;
-}
-
-.invalid_field {
-    border-style: ridge;
-    border-color: red;
-    padding: 8px;
-    display: table;
-    width: 100%;
-}
 
 .field {
     width: 100%;
