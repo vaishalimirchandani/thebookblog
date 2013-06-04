@@ -45,34 +45,85 @@ exports.index = function(req, res, next) {
     var format = req.params.format || 'html';
     format = format.toLowerCase();
 
+    function render_synchronously(posts){
+        switch (format) {
+            case 'html':
+            case 'htm':
+                res.render('posts/index', {posts: posts});
+                break;
+            case 'json':
+                res.send(posts);
+                break;
+            case 'xml':
+                res.send(posts_to_xml(posts));
+                break;
+            case 'txt':
+                res.send(posts.map(function(post) {
+                    return post.title+' ('+post.body+')';
+                }).join('\n'));
+                break;
+            default:
+                console.log('No se soporta el formato \".'+format+'\" pedido para \"'+req.url+'\".');
+                res.send(406);
+        }
+    }
+
     models.Post
-        .findAll({order: 'updatedAt DESC', include: [ { model: models.Comment, as: 'Comments'},{ model: models.User, as: 'Author' } ]})
+        .findAll({order: 'updatedAt DESC', include: [ { model: models.User, as: 'Author' } ]})
         .success(function(posts) {
-            switch (format) {
-                case 'html':
-                case 'htm':
-                    res.render('posts/index', {posts: posts});
-                    break;
-                case 'json':
-                    res.send(posts);
-                    break;
-                case 'xml':
-                    res.send(posts_to_xml(posts));
-                    break;
-                case 'txt':
-                    res.send(posts.map(function(post) {
-                        return post.title+' ('+post.body+')';
-                    }).join('\n'));
-                    break;
-                default:
-                    console.log('No se soporta el formato \".'+format+'\" pedido para \"'+req.url+'\".');
-                    res.send(406);
+
+            //http://stackoverflow.com/questions/6597493/synchronous-database-queries-with-node-js
+            if (req.session.user && posts.length > 0){
+                for (var i in posts) iteratePosts(i);
+
+                function iteratePosts(i){
+                    if (i == posts.length - 1){
+                        models.Favourite.find({where: {userId: req.session.user.id, postId: posts[i].id}})
+                            .success(function(fav) {
+                                if (fav == null){
+                                    posts[i].isFavourite = false;
+                                }else{
+                                    posts[i].isFavourite = true;
+                                }
+                                models.Comment.count({ where: {postId: posts[i].id}})
+                                    .success(function(c) {
+                                        posts[i].numberOfComments = c;
+                                        render_synchronously(posts);
+                                    })
+                                    .error(function(error) {next(error);});
+                            })
+                            .error(function(error) {next(error);});
+                    }
+                    else{
+                        console.log('im in');
+                        models.Favourite.find({where: {userId: req.session.user.id, postId: posts[i].id}})
+                            .success(function(fav) {
+                                if (fav == null){
+                                    posts[i].isFavourite = false;
+                                }else{
+                                    posts[i].isFavourite = true;
+                                }
+                                models.Comment.count({ where: {postId: posts[i].id}})
+                                    .success(function(c) {
+                                        posts[i].numberOfComments = c;
+                                    })
+                                    .error(function(error) {next(error);});
+                            })
+                            .error(function(error) {next(error);});
+                    }
+                }
             }
+            else{
+                render_synchronously(posts);
+            }
+
+
         })
         .error(function(error) {
             next(error);
         });
 };
+
 function posts_to_xml(posts) {
     return '<posts>\n' +
         posts.map(function(post) {

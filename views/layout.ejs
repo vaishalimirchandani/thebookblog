@@ -43,7 +43,7 @@
             <li id="users"><a href="/Users">users</a></li>
 
             <% if (session.user) { %>
-            <li id="favorites"><a href="/Users/<%=session.user.id%>/favourites">favorites</a></li>
+            <li id="favourites"><a href="/Users/<%=session.user.id%>/favourites">favourites</a></li>
             <% } %>
             <li><a href="about.html">about</a></li>
             <li id="register" style="display:none" ><a href='/users/new'> register </a></li>

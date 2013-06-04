@@ -5,7 +5,6 @@
 <div class="clear"></div>
 
 <% for (var i in posts) { %>
-
     <div class="left_box post">
 
         <div class="left_box_title">
@@ -18,7 +17,7 @@
 
         <div>
             <p class="details"><%= posts[i].body.slice(0,300) %> ...</p>
-            <em><p class="details"><%= posts[i].comments.length%> comments.<p></em>
+            <em><p class="details"><%= posts[i].numberOfComments%> comments.<p></em>
         </div>
 
         <div>
@@ -45,3 +44,4 @@
 </div>
 
 <div class="clear"></div>
+

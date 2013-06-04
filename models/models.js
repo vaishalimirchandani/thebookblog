@@ -27,11 +27,13 @@ var sequelize = new Sequelize(process.env.DATABASE_NAME,
 //    - User desde user.js.
 //    - Comment desde comment.js.
 //    - Attachment desde attachment.js.
+//    - Favourites desde favourite.js
 
 var Post = sequelize.import(path.join(__dirname,'post'));
 var User = sequelize.import(path.join(__dirname,'user'));
 var Comment = sequelize.import(path.join(__dirname,'comment'));
 var Attachment = sequelize.import(path.join(__dirname,'attachment'));
+var Favourite = sequelize.import(path.join(__dirname,'favourite'));
 
 // Relaciones
 
@@ -49,6 +51,10 @@ Post.hasMany(Comment, {foreignKey: 'postId'});
 
 Post.hasMany(Attachment, {foreignKey: 'postId'});
 
+User.hasMany(Favourite, {foreignKey: 'authorId'});
+Post.hasMany(Favourite, {foreignKey: 'postId'});
+
+
 
 // La llamada Post.belongsTo(User);
 //  - crea en el modelo de Post un atributo llamado UserId,
@@ -64,12 +70,15 @@ Comment.belongsTo(User, {as: 'Author', foreignKey: 'authorId'});
 Comment.belongsTo(Post, {foreignKey: 'postId'});
 Attachment.belongsTo(Post, {foreignKey: 'postId'});
 
+Favourite.belongsTo(Post, {foreignKey: 'postId'});
+Favourite.belongsTo(User, {foreignKey: 'userId'});
+
 // Exportar los modelos:
 exports.Post = Post;
 exports.User = User;
 exports.Comment = Comment;
 exports.Attachment = Attachment;
-
+exports.Favourite = Favourite;
 
 // No hace falta si migración se hace a mano
 //Si no existe la BBDD y las tablas, se crean solitas
