@@ -532,3 +532,8 @@ img.attachments{
 .attachment_actions a.more:hover{
     text-decoration: underline
 }
+
+.star{
+    width: 20px;
+    margin-left: -25px;
+}

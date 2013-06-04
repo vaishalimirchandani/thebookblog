@@ -9,6 +9,9 @@
     <div class="left_box post">
 
         <div class="left_box_title">
+            <% if (session.user) { %>
+                <img class="star" src="/images/star-yellow-icon.png" alt="star">
+            <% } %>
             <a href='/posts/<%= posts[i].id %>' class='titlelink'><%= posts[i].title %> </a> <br/>
             <em class="author"> by <%= posts[i].author && posts[i].author.name || "No Author" %> </em>
         </div>

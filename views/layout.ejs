@@ -41,6 +41,10 @@
             <li id="home" class="selected"><a href="/">home</a></li>
             <li id="books"><a href="/Posts">books</a></li>
             <li id="users"><a href="/Users">users</a></li>
+
+            <% if (session.user) { %>
+            <li id="favorites"><a href="/Users/<%=session.user.id%>/favourites">favorites</a></li>
+            <% } %>
             <li><a href="about.html">about</a></li>
             <li id="register" style="display:none" ><a href='/users/new'> register </a></li>
 
@@ -208,7 +212,6 @@
     window.onload = function(event) {
         var highestCol = $('.span12').height();
         $('.blocks').height(highestCol);
-        console.log(highestCol);
     }
 </script>
 

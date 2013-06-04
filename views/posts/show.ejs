@@ -6,7 +6,12 @@
 
 <div class="left_box post">
 
-    <div class="left_box_title"><b><%= post.title %></b>
+    <div class="left_box_title">
+        <% if (session.user) { %>
+            <img class="star" src="/images/star-yellow-icon.png" alt="star">
+        <% } %>
+
+        <b><%= post.title %></b>
         <br/>
         <em class="author">by  <%= post.author && post.author.name || 'No Author' %></em>
     </div>
