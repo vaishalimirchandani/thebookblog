@@ -533,7 +533,11 @@ img.attachments{
     text-decoration: underline
 }
 
-.star{
+form.starred{
+    display:inline;
+}
+input[type=image].star{
+    display:inline;
     width: 20px;
     margin-left: -25px;
 }

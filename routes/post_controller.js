@@ -80,11 +80,9 @@ exports.index = function(req, res, next) {
                     if (i == posts.length - 1){
                         models.Favourite.find({where: {userId: req.session.user.id, postId: posts[i].id}})
                             .success(function(fav) {
-                                if (fav == null){
-                                    posts[i].isFavourite = false;
-                                }else{
-                                    posts[i].isFavourite = true;
-                                }
+
+                                posts[i].isFavourite = (fav != null);
+
                                 models.Comment.count({ where: {postId: posts[i].id}})
                                     .success(function(c) {
                                         posts[i].numberOfComments = c;
@@ -98,11 +96,9 @@ exports.index = function(req, res, next) {
                         console.log('im in');
                         models.Favourite.find({where: {userId: req.session.user.id, postId: posts[i].id}})
                             .success(function(fav) {
-                                if (fav == null){
-                                    posts[i].isFavourite = false;
-                                }else{
-                                    posts[i].isFavourite = true;
-                                }
+
+                                posts[i].isFavourite = (fav != null);
+
                                 models.Comment.count({ where: {postId: posts[i].id}})
                                     .success(function(c) {
                                         posts[i].numberOfComments = c;
@@ -161,36 +157,49 @@ exports.show = function(req, res, next) {
                             var format = req.params.format || 'html';
                             format = format.toLowerCase();
 
-                            models.Comment.count({ where: {postId: req.post.id}}).success(function(c) {
+                            models.Comment.count({ where: {postId: req.post.id}})
+                                .success(function(c) {
 
-                                switch (format) {
-                                    case 'html':
-                                    case 'htm':
-                                        var new_comment = models.Comment.build({
-                                            body: 'Write your Comment'
-                                        });
-                                        res.render('posts/show', {
-                                            post: req.post,
-                                            comments: comments,
-                                            commentsNumber:c,
-                                            comment: new_comment,
-                                            attachments: attachments
-                                        });
-                                        break;
-                                    case 'json':
-                                        res.send(req.post);
-                                        break;
-                                    case 'xml':
-                                        res.send(post_to_xml(req.post));
-                                        break;
-                                    case 'txt':
-                                        res.send(req.post.title+' ('+req.post.body+')');
-                                        break;
-                                    default:
-                                        console.log('No se soporta el formato \".'+format+'\" pedido para \"'+req.url+'\".');
-                                        res.send(406);
-                                }
-                            });
+                                models.Favourite.find({where: {userId: req.session.user.id, postId: posts[i].id}})
+                                    .success(function (fav){
+                                        var isFav = (fav != null);
+                                        switch (format) {
+                                            case 'html':
+                                            case 'htm':
+                                                var new_comment = models.Comment.build({
+                                                    body: 'Write your Comment'
+                                                });
+                                                res.render('posts/show', {
+                                                    post: req.post,
+                                                    comments: comments,
+                                                    commentsNumber:c,
+                                                    comment: new_comment,
+                                                    attachments: attachments,
+                                                    isFav : isFav
+                                                });
+                                                break;
+                                            case 'json':
+                                                res.send(req.post);
+                                                break;
+                                            case 'xml':
+                                                res.send(post_to_xml(req.post));
+                                                break;
+                                            case 'txt':
+                                                res.send(req.post.title+' ('+req.post.body+')');
+                                                break;
+                                            default:
+                                                console.log('No se soporta el formato \".'+format+'\" pedido para \"'+req.url+'\".');
+                                                res.send(406);
+                                        }
+
+                                    })
+                                    .error(function(error) {
+                                        next(error);
+                                    });
+                                })
+                                .error(function(error) {
+                                    next(error);
+                                });
                         })
                         .error(function(error) {
                             next(error);
