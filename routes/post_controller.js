@@ -151,7 +151,9 @@ exports.show = function(req, res, next) {
                             models.Comment.count({ where: {postId: req.post.id}})
                                 .success(function(c) {
 
-                                    models.Favourite.find({where: {userId: req.session.user.id, postId: req.post.id}})
+                                    var user_id = req.session.user ? req.session.user.id : null;
+
+                                    models.Favourite.find({where: {userId: user_id, postId: req.post.id}})
                                         .success(function (fav){
                                             var isFav = (fav != null);
                                             switch (format) {
@@ -328,6 +330,9 @@ exports.destroy = function(req, res, next) {
                             function(result) {},
                             {resource_type: 'raw'});
                     }
+
+
+
 
                     // Eliminar el post
                     chainer.add(req.post.destroy());
