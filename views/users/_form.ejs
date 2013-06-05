@@ -5,7 +5,7 @@
 
      <% if ( ! user.id) { %>
         if (!pw1 || !pw2) {
-           alert('Introduce a password and confirm it.');
+           bootbox.alert("Introduce a password and confirm it.");
            return false;
         }
      <% } %>
@@ -13,7 +13,7 @@
       if (pw1 == pw2) {
          return true;
       } else {
-         alert('Passwords do not match.');
+         bootbox.alert('Passwords do not match.');
          return false;
       }
    }

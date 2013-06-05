@@ -56,10 +56,17 @@
                         <br/>
                         <br/>
                     <% } %>
-                    <form method='post' action='/posts/<%= post.id %>/attachments/<%= attachments[i].id %>'>
-                                            <input type='hidden' name='_method' value='delete'>
-                                            <a href="" onclick="submit();return false" class="more"> Delete </a>
-                                        </form>
+
+                    <% var form_name = 'fpi' + i; %>
+
+                    <form method='post' action='/posts/<%= post.id %>/attachments/<%= attachments[i].id %>' name='<%= form_name %>'>
+                        <input type='hidden' name='_method' value='delete'>
+                        <a href=""
+                            onclick="return confirmSubmit('Are you sure you want to delete this book?', '<%= form_name %>')"
+                            class="more">
+                                <i class='icon-trash'></i>  Delete
+                        </a>
+                    </form>
 
 
                 <% } %>

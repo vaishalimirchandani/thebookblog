@@ -331,21 +331,29 @@ exports.destroy = function(req, res, next) {
                             {resource_type: 'raw'});
                     }
 
+                    // Obtener los favoritos
+                    req.post.getFavourites()
+                        .success(function(favs) {
+                            for (var i in favs) {
+                                // Eliminar un comentario
+                                chainer.add(favs[i].destroy());
+                            }
+                            // Eliminar el post
+                            chainer.add(req.post.destroy());
 
-
-
-                    // Eliminar el post
-                    chainer.add(req.post.destroy());
-
-                    // Ejecutar el chainer
-                    chainer.run()
-                        .success(function(){
-                            req.flash('success', 'The book and its related comments was deleted.');
-                            res.redirect('/posts');
+                            // Ejecutar el chainer
+                            chainer.run()
+                                .success(function(){
+                                    req.flash('success', 'The book and its related comments was deleted.');
+                                    res.redirect('/posts');
+                                })
+                                .error(function(errors){
+                                    next(errors[0]);
+                                })
                         })
-                        .error(function(errors){
-                            next(errors[0]);
-                        })
+                        .error(function(error) {
+                            next(error);
+                        });
                 })
                 .error(function(error) {
                     next(error);
