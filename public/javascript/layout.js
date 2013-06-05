@@ -27,7 +27,7 @@ window.onload = function(event) {
 
 var confirmSubmit = function(msg,form_name) {
 
-    bootbox.confirm(msg, function(result) {
+    bootbox.confirm(msg, 'Cancel', 'Delete', function(result) {
         if (result) {
             document.all[form_name].submit();
         }

@@ -38,7 +38,7 @@
 
         <div>
             <% if (session.user && session.user.id == comments[i].authorId) {%>
-                <a href="/posts/<%= post.id %>/comments/<%= comments[i].id %>/edit" class="more"> Edit </a>
+                <a href="/posts/<%= post.id %>/comments/<%= comments[i].id %>/edit" class="more"><i class='icon-edit'></i> Edit </a>
                 <!-- In a form coz you can call for delete with an url, you need to access delete with a post method -->
 
 

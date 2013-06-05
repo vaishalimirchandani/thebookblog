@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 
     <script src="http://code.jquery.com/jquery.min.js"></script>
@@ -13,7 +13,7 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/javascript/bootbox.min.js"></script>
 
-<script src="/javascript/layout.js"></script>
+    <script src="/javascript/layout.js"></script>
 
     <title>The Book Blog</title>
 
@@ -48,7 +48,7 @@
             <% if (session.user) { %>
             <li id="favourites"><a href="/Users/<%=session.user.id%>/favourites">favourites</a></li>
             <% } %>
-            <li><a href="about.html">about</a></li>
+            <li><a href="/about.html">about</a></li>
             <li id="register" style="display:none" ><a href='/login'> login </a></li>
 
         </ul>
@@ -199,4 +199,3 @@
 </body>
 
 </html>
-

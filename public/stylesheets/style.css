@@ -266,6 +266,10 @@ a.more{
 
 }
 
+.left_box.subfooter{
+    border:none;
+}
+
 .left_box.subfooter p  {
     text-align: right ;
 }

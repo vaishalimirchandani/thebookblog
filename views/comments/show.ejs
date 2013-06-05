@@ -12,7 +12,7 @@
 
 <% if (session.user && session.user.id == comment.authorId) {%>
 
-  <a href="/posts/<%= post.id %>/comments/<%= comment.id %>/edit"> Editar </a>
+  <a href="/posts/<%= post.id %>/comments/<%= comment.id %>/edit"> <i class='icon-edit'></i> Editar </a>
 
 <% } %>
 
