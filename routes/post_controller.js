@@ -88,15 +88,14 @@ exports.index = function(req, res, next) {
                                 models.Favourite.find({where: {userId: req.session.user.id, postId: posts[i].id}})
                                     .success(function(fav) {
                                         posts[i].isFavourite = (fav != null);
-                                        models.Comment.count({ where: {postId: posts[i].id}})
-                                            .success(function(c) {
-                                                posts[i].numberOfComments = c;
-                                                if(i == posts.length - 1) render_synchronously(posts);
-                                            })
-                                            .error(function(error) {next(error);});
+                                        if(i == posts.length - 1) render_synchronously(posts);
                                     })
                                     .error(function(error) {next(error);});
                             }
+                            else{
+                                if(i == posts.length - 1) render_synchronously(posts);
+                            }
+
 
                         })
                         .error(function(error) {next(error);})
