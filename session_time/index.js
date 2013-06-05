@@ -10,7 +10,7 @@ exports.sessionTime_mw = function(){
     return function(req, res, next){
         if(req.session && req.session.user){
             var timeInSeconds = new Date().getTime()/1000;
-            if (timeInSeconds - req.session.user.time > 60000){
+            if (timeInSeconds - req.session.user.time > 60){
                 console.log('Session has expired. User: '+req.session.user.name)
                 delete req.session.user;
                 req.flash('info','Session has expired. Please login again');
