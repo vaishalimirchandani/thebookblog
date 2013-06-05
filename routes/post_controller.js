@@ -1,15 +1,16 @@
-/**
- * Created by:
- * User: vaishali
- * Date: 5/27/13
- * Time: 9:07 PM
- */
+/*
+* Created by:
+* User: vaishali
+* Date: 5/27/13
+* Time: 9:07 PM
+*/
+
 var models = require('../models/models.js');
 
-/*
- * Comprueba que el usuario logeado es el author.
- */
-exports.loggedUserIsAuthor = function(req, res, next) {
+// Comprueba que el usuario logeado es el author.
+
+
+    exports.loggedUserIsAuthor = function(req, res, next) {
 
     if (req.session.user && req.session.user.id == req.post.authorId) {
         next();
@@ -19,9 +20,9 @@ exports.loggedUserIsAuthor = function(req, res, next) {
     }
 };
 
-/*
- *  Auto-loading con app.param
- */
+//  Auto-loading con app.param
+
+
 exports.load = function(req, res, next, id) {
 
     models.Post
@@ -73,47 +74,38 @@ exports.index = function(req, res, next) {
         .success(function(posts) {
 
             //http://stackoverflow.com/questions/6597493/synchronous-database-queries-with-node-js
-            if (req.session.user && posts.length > 0){
+            if (posts.length > 0){
                 for (var i in posts) iteratePosts(i);
 
                 function iteratePosts(i){
-                    if (i == posts.length - 1){
-                        models.Favourite.find({where: {userId: req.session.user.id, postId: posts[i].id}})
-                            .success(function(fav) {
 
-                                posts[i].isFavourite = (fav != null);
+                    models.Comment.count({ where: {postId: posts[i].id}})
+                        .success(function(c) {
+                            posts[i].numberOfComments = c;
 
-                                models.Comment.count({ where: {postId: posts[i].id}})
-                                    .success(function(c) {
-                                        posts[i].numberOfComments = c;
-                                        render_synchronously(posts);
+                            if (req.session.user ){
+
+                                models.Favourite.find({where: {userId: req.session.user.id, postId: posts[i].id}})
+                                    .success(function(fav) {
+                                        posts[i].isFavourite = (fav != null);
+                                        models.Comment.count({ where: {postId: posts[i].id}})
+                                            .success(function(c) {
+                                                posts[i].numberOfComments = c;
+                                                if(i == posts.length - 1) render_synchronously(posts);
+                                            })
+                                            .error(function(error) {next(error);});
                                     })
                                     .error(function(error) {next(error);});
-                            })
-                            .error(function(error) {next(error);});
-                    }
-                    else{
-                        console.log('im in');
-                        models.Favourite.find({where: {userId: req.session.user.id, postId: posts[i].id}})
-                            .success(function(fav) {
+                            }
 
-                                posts[i].isFavourite = (fav != null);
-
-                                models.Comment.count({ where: {postId: posts[i].id}})
-                                    .success(function(c) {
-                                        posts[i].numberOfComments = c;
-                                    })
-                                    .error(function(error) {next(error);});
-                            })
-                            .error(function(error) {next(error);});
-                    }
+                        })
+                        .error(function(error) {next(error);})
+                    ;
                 }
             }
             else{
                 render_synchronously(posts);
             }
-
-
         })
         .error(function(error) {
             next(error);
@@ -160,42 +152,42 @@ exports.show = function(req, res, next) {
                             models.Comment.count({ where: {postId: req.post.id}})
                                 .success(function(c) {
 
-                                models.Favourite.find({where: {userId: req.session.user.id, postId: posts[i].id}})
-                                    .success(function (fav){
-                                        var isFav = (fav != null);
-                                        switch (format) {
-                                            case 'html':
-                                            case 'htm':
-                                                var new_comment = models.Comment.build({
-                                                    body: 'Write your Comment'
-                                                });
-                                                res.render('posts/show', {
-                                                    post: req.post,
-                                                    comments: comments,
-                                                    commentsNumber:c,
-                                                    comment: new_comment,
-                                                    attachments: attachments,
-                                                    isFav : isFav
-                                                });
-                                                break;
-                                            case 'json':
-                                                res.send(req.post);
-                                                break;
-                                            case 'xml':
-                                                res.send(post_to_xml(req.post));
-                                                break;
-                                            case 'txt':
-                                                res.send(req.post.title+' ('+req.post.body+')');
-                                                break;
-                                            default:
-                                                console.log('No se soporta el formato \".'+format+'\" pedido para \"'+req.url+'\".');
-                                                res.send(406);
-                                        }
+                                    models.Favourite.find({where: {userId: req.session.user.id, postId: req.post.id}})
+                                        .success(function (fav){
+                                            var isFav = (fav != null);
+                                            switch (format) {
+                                                case 'html':
+                                                case 'htm':
+                                                    var new_comment = models.Comment.build({
+                                                        body: 'Write your Comment'
+                                                    });
+                                                    res.render('posts/show', {
+                                                        post: req.post,
+                                                        comments: comments,
+                                                        commentsNumber:c,
+                                                        comment: new_comment,
+                                                        attachments: attachments,
+                                                        isFav : isFav
+                                                    });
+                                                    break;
+                                                case 'json':
+                                                    res.send(req.post);
+                                                    break;
+                                                case 'xml':
+                                                    res.send(post_to_xml(req.post));
+                                                    break;
+                                                case 'txt':
+                                                    res.send(req.post.title+' ('+req.post.body+')');
+                                                    break;
+                                                default:
+                                                    console.log('No se soporta el formato \".'+format+'\" pedido para \"'+req.url+'\".');
+                                                    res.send(406);
+                                            }
 
-                                    })
-                                    .error(function(error) {
-                                        next(error);
-                                    });
+                                        })
+                                        .error(function(error) {
+                                            next(error);
+                                        });
                                 })
                                 .error(function(error) {
                                     next(error);

@@ -7,8 +7,18 @@
 <div class="left_box post">
 
     <div class="left_box_title">
-        <% if (session.user) { %>
-            <img class="star" src="/images/star-yellow-icon.png" alt="star">
+        <% if (session.user) {
+                if (isFav){%>
+                    <form class="starred" method='post' action='/users/<%= session.user.id %>/favourites/<%= post.id %>'>
+                        <input type='hidden' name='_method' value='delete'>
+                        <input class="star" type='image' src="/images/star-yellow-icon.png">
+                    </form>
+                <%}else{%>
+                    <form class="starred" method='post' action='/users/<%= session.user.id %>/favourites/<%= post.id %>'>
+                        <input type='hidden' name='_method' value='put'>
+                        <input class="star" type='image' src="/images/star-grey-icon.png">
+                    </form>
+                <%}%>
         <% } %>
 
         <b><%= post.title %></b>

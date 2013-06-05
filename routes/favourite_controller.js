@@ -9,11 +9,33 @@
 
 var models = require('../models/models.js');
 
-
-// GET /users/1/favourites -> enders the list of favourites
+// GET /users/25/favourites
 exports.index = function(req, res, next) {
+    var format = req.params.format || 'html';
+    format = format.toLowerCase();
 
-    //GET ALL FAVOURITES POST OF USER
+    function render_synchronously(posts){
+        switch (format) {
+            case 'html':
+            case 'htm':
+                res.render('favourites/index', {posts: posts});
+                break;
+            case 'json':
+                res.send(posts);
+                break;
+            case 'xml':
+                res.send(posts_to_xml(posts));
+                break;
+            case 'txt':
+                res.send(posts.map(function(post) {
+                    return post.title+' ('+post.body+')';
+                }).join('\n'));
+                break;
+            default:
+                console.log('No se soporta el formato \".'+format+'\" pedido para \"'+req.url+'\".');
+                res.send(406);
+        }
+    }
 
     models.Favourite.findAll({where: {userId: req.user.id}})
         .success(function(favourites) {
@@ -31,39 +53,61 @@ exports.index = function(req, res, next) {
                     models.Favourite ]
             })
                 .success(function(posts) {
-                    switch (format) {
-                        case 'html':
-                        case 'htm':
 
-                            res.render('posts/index', {posts: posts});
-                            res.render('favourites/index', {posts: posts});
-                            break;
-                        case 'json':
-                            res.send(posts);
-                            break;
-                        case 'xml':
-                            res.send(posts_to_xml(posts));
-                            break;
-                        case 'txt':
-                            res.send(posts.map(function(post) {
-                                return post.title+' ('+post.body+')';
-                            }).join('\n'));
-                            break;
-                        default:
-                            console.log('No se soporta el formato \".'+format+'\" pedido para \"'+req.url+'\".');
-                            res.send(406);
+                    //http://stackoverflow.com/questions/6597493/synchronous-database-queries-with-node-js
+                    if (posts.length > 0){
+                        for (var i in posts) iteratePosts(i);
+
+                        function iteratePosts(i){
+
+                            models.Comment.count({ where: {postId: posts[i].id}})
+                                .success(function(c) {
+                                    posts[i].numberOfComments = c;
+
+                                    if (req.session.user ){
+
+                                        models.Favourite.find({where: {userId: req.session.user.id, postId: posts[i].id}})
+                                            .success(function(fav) {
+                                                posts[i].isFavourite = (fav != null);
+                                                models.Comment.count({ where: {postId: posts[i].id}})
+                                                    .success(function(c) {
+                                                        posts[i].numberOfComments = c;
+                                                        if(i == posts.length - 1) render_synchronously(posts);
+                                                    })
+                                                    .error(function(error) {next(error);});
+                                            })
+                                            .error(function(error) {next(error);});
+                                    }
+
+                                })
+                                .error(function(error) {next(error);})
+                            ;
+                        }
+                    }
+                    else{
+                        render_synchronously(posts);
                     }
                 })
                 .error(function(error) {
                     next(error);
                 });
 
-
-            res.render('favourites/index', {
-                posts: posts
-            });
+        })
+        .error(function(error) {
+            next(error);
         });
+};
+
+function posts_to_xml(posts) {
+    return '<posts>\n' +
+        posts.map(function(post) {
+            return '<post>'+
+                ' <title>'+post.title+'</title>'+
+                ' <body>'+post.body+'</body>'+
+                '</post>';
+        }).join('\n') + ('\n</posts>');
 }
+
 
 
 // PUT /users/1/post/1

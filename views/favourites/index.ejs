@@ -1,11 +1,17 @@
-<%- include _changeSelectedMenu.ejs %>
+<script type="text/javascript">
+
+        document.getElementById("home").className = "";
+        document.getElementById("books").className = "";
+        document.getElementById("users").className = "";
+        document.getElementById("favourites").className = "selected";
+
+</script>
 
 <div class="left_title">Books</div>
 
 <div class="clear"></div>
 
 <% for (var i in posts) { %>
-
     <div class="left_box post">
 
         <div class="left_box_title">
@@ -49,10 +55,6 @@
     <div class="clear"></div>
 
 <% }; %>
-
-<div class="left_box post subfooter">
-    <a href="/posts/new"> Add New Book </a>
-</div>
 
 <div class="clear"></div>
 
